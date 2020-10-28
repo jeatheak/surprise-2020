@@ -13,17 +13,17 @@
 1. Vind de schoenen
 	1. Achtergond: 	
 		1. :musical_note: *snel liedje*
-- Scenario:		
-	* `Voordat het pad afgelegd kan worden moet je goede schoenen hebben. Verkrijg de schoenen en de zoektocht kan verder gaan`
-- Hardware:		
-	* Ledstrip onder de weg
-	* 2 knoppen aan de zijkant
-- Todo: 		
-	* Rennen ==> druk de knop op zijkant zeer snel in. 
-	* als het te langzaam is dan error en moet je opnieuw beginnen
-- Uitkomst: 		
-	* :musical_note: *walking*
-	* **Schoenen worden belicht**
+	2. Scenario:		
+		2. `Voordat het pad afgelegd kan worden moet je goede schoenen hebben. Verkrijg de schoenen en de zoektocht kan verder gaan`
+	3. Hardware:		
+		3. Ledstrip onder de weg
+		3. 2 knoppen aan de zijkant
+	4. Todo: 		
+		4. Rennen ==> druk de knop op zijkant zeer snel in. 
+		4. als het te langzaam is dan error en moet je opnieuw beginnen
+	5. Uitkomst: 		
+		5. :musical_note: *walking*
+		5. **Schoenen worden belicht**
 
 
 ---
