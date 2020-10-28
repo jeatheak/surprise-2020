@@ -10,7 +10,7 @@
 ## States
 
 ---
-### Vind de schoenen
+### Vind de schoenen :walking: 
 * Achtergond:
 	* :musical_note: *snel liedje*
 * Scenario:	
@@ -26,7 +26,7 @@
 	* **Schoenen worden belicht**
 
 ---
-### Steek de weg over
+### Steek de weg over :walking:
 * Achtergond:	
 	* :musical_note: *Rijdende auto's*
 * Scenario:		
@@ -43,7 +43,7 @@
 
 
 ---	
-### Tripwires ==> (title)
+### Tripwires ==> (title) :flashlight: 	
 * Achtergond:	
 	* :musical_note: *Mission impossible*
 * Scenario:		
@@ -54,7 +54,7 @@
 	* 
 
 ---
-### Door het Riool
+### Door het Riool :potable_water: 
 * Achtergrond:	
 	* :musical_note: *Druipend water*
 * Scenario:	
@@ -76,4 +76,4 @@
 	* Ingang riool **gaat uit**
 
 ---
-### Finale
+### Finale :checkered_flag: 
