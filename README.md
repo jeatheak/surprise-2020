@@ -1,19 +1,17 @@
 # Beste ....
 
-## Intro
+## Intro Text
 
-### Text
-
-`Het is weer zo ver BLA BLA BLA`
-`Laten we beginnen: er moet een route afgelegd worden maar deze zal niet zonder obstakels zijn! **Muhahahahahaha**`
-`De niet nader genoemde postbode heeft een pakketje voor je, echter er zijn wat problemen onderweg. Daardoor heb ik een missie voor je: Red het pakketje en je zal beloond worden.`
+> Het is weer zo ver BLA BLA BLA`
+> Laten we beginnen: er moet een route afgelegd worden maar deze zal niet zonder obstakels zijn! **Muhahahahahaha**`
+> De niet nader genoemde postbode heeft een pakketje voor je, echter er zijn wat problemen onderweg. Daardoor heb ik een missie voor je: Red het pakketje en je zal beloond worden.`
 
 
 ## States
 
 1. Vind de schoenen
 - Achtergond: 	
-	* :music: *snel liedje*
+	* :musical_note: *snel liedje*
 - Scenario:		
 	* `Voordat het pad afgelegd kan worden moet je goede schoenen hebben. Verkrijg de schoenen en de zoektocht kan verder gaan`
 - Hardware:		
@@ -23,16 +21,16 @@
 	* Rennen ==> druk de knop op zijkant zeer snel in. 
 	* als het te langzaam is dan error en moet je opnieuw beginnen
 - Uitkomst: 		
-	* :music: *walking*
+	* :musical_note: *walking*
 	* **Schoenen worden belicht**
 
 
 2. Steek de weg over
 - Achtergond:	
-	* :music: *Rijdende auto's*
+	* :musical_note: *Rijdende auto's*
 - Scenario:		
 	* `Nu je goede schoenen hebt kan de zoektocht voortgezet worden`
-	* :music: *voetstappen* voor 5 seconden ==> **pad verlicht naar Weg**
+	* :musical_note: *voetstappen* voor 5 seconden ==> **pad verlicht naar Weg**
 	* `Ow nee.. helemaal vergeten, het is spits! Om de zoektocht verder te zetten moeten we de weg oversteken....`
 - Hardware:	
 	* Led matrix die de weg met auto's simuleren
@@ -45,7 +43,7 @@
 
 3. Tripwires ==> (title)
 - Achtergond:	
-	* :music: *Mission impossible*
+	* :musical_note: *Mission impossible*
 - Scenario:		
 	* 
 - Hardware:	
@@ -56,12 +54,12 @@
 
 4. Door het Riool
 - Achtergrond:	
-	* :music: *Druipend water*
+	* :musical_note: *Druipend water*
 - Scenario:	
 	* `Mission update: er zijn sporen gevonden in het riool. Betreed het Riool en zoek verder`
 	* Sleep 1 seconden
 	* **riool licht aan** 
-	* :music: *water voetstappen* voor 5 seconden
+	* :musical_note: *water voetstappen* voor 5 seconden
 	* `De uigang wordt geblokkeerd door een deur met een cijferslot! ontcijfer het om verder te kunnen`
 - Hardware:	
 	* Ledjes Riool
