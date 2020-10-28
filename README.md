@@ -10,7 +10,7 @@
 ## States
 
 ---
-### Vind de schoenen :walking: 
+### Vind de schoenen :shoe: 
 * Achtergond:
 	* :musical_note: *snel liedje*
 * Scenario:	
