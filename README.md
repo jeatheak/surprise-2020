@@ -1,5 +1,15 @@
 # Beste ....
 
+## TODO
+
+- [] Design states (writen)
+- [] 3D design
+- [] Electronics
+- [] Painting
+- [] Combine
+- [] Test
+- [] Finalize
+
 ## Intro Text
 
 > Het is weer zo ver BLA BLA BLA`
