@@ -26,54 +26,54 @@
 	* **Schoenen worden belicht**
 
 ---
-2. Steek de weg over
-- Achtergond:	
+### Steek de weg over
+* Achtergond:	
 	* :musical_note: *Rijdende auto's*
-- Scenario:		
+* Scenario:		
 	* `Nu je goede schoenen hebt kan de zoektocht voortgezet worden`
 	* :musical_note: *voetstappen* voor 5 seconden ==> **pad verlicht naar Weg**
 	* `Ow nee.. helemaal vergeten, het is spits! Om de zoektocht verder te zetten moeten we de weg oversteken....`
-- Hardware:	
+* Hardware:	
 	* Led matrix die de weg met auto's simuleren
 	* 3 knoppen
-- Todo:		
+* Todo:		
 	* pijltjes gebruiken om over te steken.	
-- Uitkomst:
+* Uitkomst:
 	* Weg gaat **groen pulseren**
 
 
 ---	
-3. Tripwires ==> (title)
-- Achtergond:	
+### Tripwires ==> (title)
+* Achtergond:	
 	* :musical_note: *Mission impossible*
-- Scenario:		
+* Scenario:		
 	* 
-- Hardware:	
+* Hardware:	
 	* 
-- Todo:		
+* Todo:		
 	* 
 
 ---
-4. Door het Riool
-- Achtergrond:	
+### Door het Riool
+* Achtergrond:	
 	* :musical_note: *Druipend water*
-- Scenario:	
+* Scenario:	
 	* `Mission update: er zijn sporen gevonden in het riool. Betreed het Riool en zoek verder`
 	* Sleep 1 seconden
 	* **riool licht aan** 
 	* :musical_note: *water voetstappen* voor 5 seconden
 	* `De uigang wordt geblokkeerd door een deur met een cijferslot! ontcijfer het om verder te kunnen`
-- Hardware:	
+* Hardware:	
 	* Ledjes Riool
 	* Segment display of LCD
 	* 2 knoppen (+ enter misschien)
-- Todo:		
+* Todo:		
 	* Code kraken.
 	* er zijjn hints te vekrijgen over het bord of via de text
-- Uitkomst:
+* Uitkomst:
 	* **Segment slaat op hol**
 	* Riool aan de andere kant wordt **belicht**
 	* Ingang riool **gaat uit**
 
 ---
-5. 
+### Finale
