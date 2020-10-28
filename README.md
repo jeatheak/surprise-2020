@@ -2,13 +2,29 @@
 
 ## TODO
 
-- [] Design states (writen)
-- [] 3D design
-- [] Electronics
-- [] Painting
-- [] Combine
-- [] Test
-- [] Finalize
+- [ ] Design states (writen)
+	- [x] Vind de Schoenen
+	- [x] Steek de weg over
+	- [ ] Tripwire
+	- [x] Door het Riool
+	- [ ] Final
+- [ ] 3D design
+	- [o] Vind de Schoenen
+	- [ ] Steek de weg over
+	- [ ] Tripwire
+	- [ ] Door het Riool
+	- [ ] Final
+- [ ] Electronics
+	- [ ] Mainbord -> ESP32 + SD Card
+	- [ ] Front control board
+	- [ ] Shoe Light
+	- [ ] Water Matrix
+	- [ ] Tripwire lasers
+	- [ ] Riool lichten
+	- [ ] Finale
+- [ ] Painting
+- [ ] Test
+- [ ] Finalize
 
 ## Intro Text
 
