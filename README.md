@@ -11,7 +11,7 @@
 
 ---
 1. Vind de schoenen
-- Achtergond: 	
+  1. Achtergond: 	
 	* :musical_note: *snel liedje*
 - Scenario:		
 	* `Voordat het pad afgelegd kan worden moet je goede schoenen hebben. Verkrijg de schoenen en de zoektocht kan verder gaan`
@@ -43,7 +43,7 @@
 	* Weg gaat **groen pulseren**
 
 
----
+---	
 3. Tripwires ==> (title)
 - Achtergond:	
 	* :musical_note: *Mission impossible*
@@ -75,3 +75,6 @@
 	* **Segment slaat op hol**
 	* Riool aan de andere kant wordt **belicht**
 	* Ingang riool **gaat uit**
+
+---
+5. 
