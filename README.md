@@ -9,6 +9,7 @@
 
 ## States
 
+---
 1. Vind de schoenen
 - Achtergond: 	
 	* :musical_note: *snel liedje*
@@ -25,6 +26,7 @@
 	* **Schoenen worden belicht**
 
 
+---
 2. Steek de weg over
 - Achtergond:	
 	* :musical_note: *Rijdende auto's*
@@ -41,6 +43,7 @@
 	* Weg gaat **groen pulseren**
 
 
+---
 3. Tripwires ==> (title)
 - Achtergond:	
 	* :musical_note: *Mission impossible*
@@ -51,7 +54,7 @@
 - Todo:		
 	* 
 
-
+---
 4. Door het Riool
 - Achtergrond:	
 	* :musical_note: *Druipend water*
