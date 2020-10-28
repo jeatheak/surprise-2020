@@ -9,7 +9,7 @@
 	- [x] Door het Riool
 	- [ ] Final
 - [ ] 3D design
-	- [o] Vind de Schoenen
+	- [ ] Vind de Schoenen
 	- [ ] Steek de weg over
 	- [ ] Tripwire
 	- [ ] Door het Riool
