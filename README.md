@@ -11,22 +11,17 @@
 
 ---
 ### Vind de schoenen
-* Achtergond: 	
-
+* Achtergond:
 	* :musical_note: *snel liedje*
 * Scenario:	
-
 	* `Voordat het pad afgelegd kan worden moet je goede schoenen hebben. Verkrijg de schoenen en de zoektocht kan verder gaan`
-* Hardware:		
-
+* Hardware:
 	* Ledstrip onder de weg
 	* 2 knoppen aan de zijkant
-* Todo: 	
-
+* Todo:
 	* Rennen ==> druk de knop op zijkant zeer snel in. 
 	* als het te langzaam is dan error en moet je opnieuw beginnen
-* Uitkomst: 
-		
+* Uitkomst:
 	* :musical_note: *walking*
 	* **Schoenen worden belicht**
 
