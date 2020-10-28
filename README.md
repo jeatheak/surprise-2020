@@ -11,7 +11,7 @@
 
 ---
 1. Vind de schoenen
-  1. Achtergond: 	
+	1. Achtergond: 	
 	* :musical_note: *snel liedje*
 - Scenario:		
 	* `Voordat het pad afgelegd kan worden moet je goede schoenen hebben. Verkrijg de schoenen en de zoektocht kan verder gaan`
