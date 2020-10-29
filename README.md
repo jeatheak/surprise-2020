@@ -16,6 +16,7 @@
   - [ ] Final
 - [ ] Electronics
   - [ ] Mainbord -> ESP32 + SD Card
+  - [ ] Create Speaker + Amplifier
   - [ ] Front control board
   - [ ] Shoe Light
   - [ ] Water Matrix
