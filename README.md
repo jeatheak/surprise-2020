@@ -38,7 +38,7 @@
 ### Vind de schoenen :shoe:
 
 - #### Achtergond:
-  - :musical_note: \_snel liedje\*
+  - :musical_note: _snel liedje_
 - #### Scenario:
   - :loudspeaker: `Voordat het pad afgelegd kan worden moet je goede schoenen hebben. Verkrijg de schoenen en de zoektocht kan verder gaan`
 - #### Hardware:
@@ -48,7 +48,7 @@
   - Rennen ==> druk de knop op zijkant zeer snel in.
   - als het te langzaam is dan error en moet je opnieuw beginnen
 - #### Uitkomst:
-  - :musical_note: \_walking\*
+  - :musical_note: _walking_
   - **Schoenen worden belicht**
 
 ---
@@ -56,10 +56,10 @@
 ### Steek de weg over :walking:
 
 - #### Achtergond:
-  - :musical_note: \_Rijdende auto's\*
+  - :musical_note: _Rijdende auto's_
 - #### Scenario:
   - :loudspeaker: `Nu je goede schoenen hebt kan de zoektocht voortgezet worden`
-  - :musical_note: \_voetstappen\* voor 5 seconden ==> **pad verlicht naar Weg**
+  - :musical_note: _voetstappen_ voor 5 seconden ==> **pad verlicht naar Weg**
   - :loudspeaker: `Ow nee.. helemaal vergeten, het is spits! Om de zoektocht verder te zetten moeten we de weg oversteken....`
 - #### Hardware:
   - Led matrix die de weg met auto's simuleren
@@ -74,7 +74,7 @@
 ### Tripwires ==> (title) :flashlight:
 
 - #### Achtergond:
-  - :musical_note: \_Mission impossible\*
+  - :musical_note: _Mission impossible_
 - #### Scenario:
 - #### Hardware:
 - #### Todo:
@@ -84,12 +84,12 @@
 ### Door het Riool :potable_water:
 
 - #### Achtergrond:
-  - :musical_note: \_Druipend water\*
+  - :musical_note: _Druipend water_
 - #### Scenario:
   - :loudspeaker: `Mission update: er zijn sporen gevonden in het riool. Betreed het Riool en zoek verder`
   - Sleep 1 seconden
   - **riool licht aan**
-  - :musical_note: \_water voetstappen\* voor 5 seconden
+  - :musical_note: _water voetstappen_ voor 5 seconden
   - :loudspeaker: `De uigang wordt geblokkeerd door een deur met een cijferslot! ontcijfer het om verder te kunnen`
 - #### Hardware:
   - Ledjes Riool
