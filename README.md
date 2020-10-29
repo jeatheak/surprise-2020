@@ -38,7 +38,7 @@
 ### Vind de schoenen :shoe:
 
 - #### Achtergond:
-  - :musical*note: \_snel liedje*
+  - :musical_note: snel liedje
 - #### Scenario:
   - :loudspeaker: `Voordat het pad afgelegd kan worden moet je goede schoenen hebben. Verkrijg de schoenen en de zoektocht kan verder gaan`
 - #### Hardware:
@@ -48,7 +48,7 @@
   - Rennen ==> druk de knop op zijkant zeer snel in.
   - als het te langzaam is dan error en moet je opnieuw beginnen
 - #### Uitkomst:
-  - :musical*note: \_walking*
+  - :musical_note: walking
   - :bulb: **Schoenen worden belicht**
 
 ---
@@ -56,10 +56,10 @@
 ### Steek de weg over :walking:
 
 - #### Achtergond:
-  - :musical*note: \_Rijdende auto's*
+  - :musical_note: Rijdende auto's
 - #### Scenario:
   - :loudspeaker: `Nu je goede schoenen hebt kan de zoektocht voortgezet worden`
-  - :musical*note: \_voetstappen* voor 5 seconden
+  - :musical_note: voetstappen\* voor 5 seconden
   - :bulb: **pad verlicht naar Weg**
   - :loudspeaker: `Ow nee.. helemaal vergeten, het is spits! Om de zoektocht verder te zetten moeten we de weg oversteken....`
 - #### Hardware::
@@ -75,7 +75,7 @@
 ### Tripwires ==> (title) :flashlight:
 
 - #### Achtergond:
-  - :musical*note: \_Mission impossible*
+  - :musical_note: Mission impossible
 - #### Scenario:
 - #### Hardware:
 - #### Todo:
@@ -85,12 +85,12 @@
 ### Door het Riool :potable_water:
 
 - #### Achtergrond:
-  - :musical*note: \_Druipend water*
+  - :musical_note: Druipend water
 - #### Scenario:
   - :loudspeaker: `Mission update: er zijn sporen gevonden in het riool. Betreed het Riool en zoek verder`
   - :zzz: Sleep 1 seconden
   - :bulb: **riool licht aan**
-  - :musical*note: \_water voetstappen* voor 5 seconden
+  - :musical_note: water voetstappen voor 5 seconden
   - :loudspeaker: `De uigang wordt geblokkeerd door een deur met een cijferslot! ontcijfer het om verder te kunnen`
 - #### Hardware:
   - Ledjes Riool
@@ -109,7 +109,7 @@
 ### Finale :checkered_flag:
 
 - #### Achtergond:
-  - :musical_note: \*\*
+  - :musical_note:
 - #### Scenario:
 - #### Hardware:
 - #### Todo:
