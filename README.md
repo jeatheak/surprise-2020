@@ -38,7 +38,7 @@
 ### Vind de schoenen :shoe:
 
 - #### Achtergond:
-  - :musical_note: _snel liedje_
+  - :musical*note: \_snel liedje*
 - #### Scenario:
   - :loudspeaker: `Voordat het pad afgelegd kan worden moet je goede schoenen hebben. Verkrijg de schoenen en de zoektocht kan verder gaan`
 - #### Hardware:
@@ -48,33 +48,34 @@
   - Rennen ==> druk de knop op zijkant zeer snel in.
   - als het te langzaam is dan error en moet je opnieuw beginnen
 - #### Uitkomst:
-  - :musical_note: _walking_
-  - **Schoenen worden belicht**
+  - :musical*note: \_walking*
+  - :bulb: **Schoenen worden belicht**
 
 ---
 
 ### Steek de weg over :walking:
 
 - #### Achtergond:
-  - :musical_note: _Rijdende auto's_
+  - :musical*note: \_Rijdende auto's*
 - #### Scenario:
   - :loudspeaker: `Nu je goede schoenen hebt kan de zoektocht voortgezet worden`
-  - :musical_note: _voetstappen_ voor 5 seconden ==> **pad verlicht naar Weg**
+  - :musical*note: \_voetstappen* voor 5 seconden
+  - :bulb: **pad verlicht naar Weg**
   - :loudspeaker: `Ow nee.. helemaal vergeten, het is spits! Om de zoektocht verder te zetten moeten we de weg oversteken....`
-- #### Hardware:
+- #### Hardware::
   - Led matrix die de weg met auto's simuleren
   - 3 knoppen
 - #### Todo:
   - pijltjes gebruiken om over te steken.
 - #### Uitkomst:
-  - Weg gaat **groen pulseren**
+  - :bulb: Weg gaat **groen pulseren**
 
 ---
 
 ### Tripwires ==> (title) :flashlight:
 
 - #### Achtergond:
-  - :musical_note: _Mission impossible_
+  - :musical*note: \_Mission impossible*
 - #### Scenario:
 - #### Hardware:
 - #### Todo:
@@ -84,12 +85,12 @@
 ### Door het Riool :potable_water:
 
 - #### Achtergrond:
-  - :musical_note: _Druipend water_
+  - :musical*note: \_Druipend water*
 - #### Scenario:
   - :loudspeaker: `Mission update: er zijn sporen gevonden in het riool. Betreed het Riool en zoek verder`
-  - Sleep 1 seconden
-  - **riool licht aan**
-  - :musical_note: _water voetstappen_ voor 5 seconden
+  - :zzz: Sleep 1 seconden
+  - :bulb: **riool licht aan**
+  - :musical*note: \_water voetstappen* voor 5 seconden
   - :loudspeaker: `De uigang wordt geblokkeerd door een deur met een cijferslot! ontcijfer het om verder te kunnen`
 - #### Hardware:
   - Ledjes Riool
@@ -100,8 +101,8 @@
   - er zijjn hints te vekrijgen over het bord of via de text
 - #### Uitkomst:
   - **Segment slaat op hol**
-  - Riool aan de andere kant wordt **belicht**
-  - Ingang riool **gaat uit**
+  - :bulb: Riool aan de andere kant wordt **belicht**
+  - :bulb: Ingang riool **gaat uit**
 
 ---
 
