@@ -26,9 +26,9 @@
 - [ ] Test
 - [ ] Finalize
 
-## Intro Text
+## Intro Text :loudspeaker:
 
-> Het is weer zo ver BLA BLA BLA` Laten we beginnen: er moet een route afgelegd worden maar deze zal niet zonder obstakels zijn! **Muhahahahahaha**`
+> Het is weer zo ver BLA BLA BLA Laten we beginnen: er moet een route afgelegd worden maar deze zal niet zonder obstakels zijn! **Muhahahahahaha**
 > De niet nader genoemde postbode heeft een pakketje voor je, echter er zijn wat problemen onderweg. Daardoor heb ik een missie voor je: Red het pakketje en je zal beloond worden.`
 
 ## States
@@ -40,7 +40,7 @@
 - #### Achtergond:
   - :musical_note: \_snel liedje\*
 - #### Scenario:
-  - `Voordat het pad afgelegd kan worden moet je goede schoenen hebben. Verkrijg de schoenen en de zoektocht kan verder gaan`
+  - :loudspeaker: `Voordat het pad afgelegd kan worden moet je goede schoenen hebben. Verkrijg de schoenen en de zoektocht kan verder gaan`
 - #### Hardware:
   - Ledstrip onder de weg
   - 2 knoppen aan de zijkant
@@ -58,9 +58,9 @@
 - #### Achtergond:
   - :musical_note: \_Rijdende auto's\*
 - #### Scenario:
-  - `Nu je goede schoenen hebt kan de zoektocht voortgezet worden`
+  - :loudspeaker: `Nu je goede schoenen hebt kan de zoektocht voortgezet worden`
   - :musical_note: \_voetstappen\* voor 5 seconden ==> **pad verlicht naar Weg**
-  - `Ow nee.. helemaal vergeten, het is spits! Om de zoektocht verder te zetten moeten we de weg oversteken....`
+  - :loudspeaker: `Ow nee.. helemaal vergeten, het is spits! Om de zoektocht verder te zetten moeten we de weg oversteken....`
 - #### Hardware:
   - Led matrix die de weg met auto's simuleren
   - 3 knoppen
@@ -86,11 +86,11 @@
 - #### Achtergrond:
   - :musical_note: \_Druipend water\*
 - #### Scenario:
-  - `Mission update: er zijn sporen gevonden in het riool. Betreed het Riool en zoek verder`
+  - :loudspeaker: `Mission update: er zijn sporen gevonden in het riool. Betreed het Riool en zoek verder`
   - Sleep 1 seconden
   - **riool licht aan**
   - :musical_note: \_water voetstappen\* voor 5 seconden
-  - `De uigang wordt geblokkeerd door een deur met een cijferslot! ontcijfer het om verder te kunnen`
+  - :loudspeaker: `De uigang wordt geblokkeerd door een deur met een cijferslot! ontcijfer het om verder te kunnen`
 - #### Hardware:
   - Ledjes Riool
   - Segment display of LCD
