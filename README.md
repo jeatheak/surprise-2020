@@ -49,6 +49,7 @@
   - als het te langzaam is dan error en moet je opnieuw beginnen
 - #### Uitkomst:
   - :musical_note: walking
+  - :zzz: Sleep 5 seconden
   - :bulb: **Schoenen worden belicht**
 
 ---
@@ -59,7 +60,8 @@
   - :musical_note: Rijdende auto's
 - #### Scenario:
   - :loudspeaker: `Nu je goede schoenen hebt kan de zoektocht voortgezet worden`
-  - :musical_note: voetstappen voor 5 seconden
+  - :musical_note: voetstappen
+  - :zzz: Sleep 5 seconden
   - :bulb: **pad verlicht naar Weg**
   - :loudspeaker: `Ow nee.. helemaal vergeten, het is spits! Om de zoektocht verder te zetten moeten we de weg oversteken....`
 - #### Hardware::
@@ -90,7 +92,8 @@
   - :loudspeaker: `Mission update: er zijn sporen gevonden in het riool. Betreed het Riool en zoek verder`
   - :zzz: Sleep 1 seconden
   - :bulb: **riool licht aan**
-  - :musical_note: water voetstappen voor 5 seconden
+  - :musical_note: water voetstappen
+  - :zzz: Sleep 5 seconden
   - :loudspeaker: `De uigang wordt geblokkeerd door een deur met een cijferslot! ontcijfer het om verder te kunnen`
 - #### Hardware:
   - Ledjes Riool
@@ -102,6 +105,7 @@
 - #### Uitkomst:
   - **Segment slaat op hol**
   - :bulb: Riool aan de andere kant wordt **belicht**
+  - :zzz: Sleep 2 seconden
   - :bulb: Ingang riool **gaat uit**
 
 ---
