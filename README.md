@@ -59,7 +59,7 @@
   - :musical_note: Rijdende auto's
 - #### Scenario:
   - :loudspeaker: `Nu je goede schoenen hebt kan de zoektocht voortgezet worden`
-  - :musical_note: voetstappen\* voor 5 seconden
+  - :musical_note: voetstappen voor 5 seconden
   - :bulb: **pad verlicht naar Weg**
   - :loudspeaker: `Ow nee.. helemaal vergeten, het is spits! Om de zoektocht verder te zetten moeten we de weg oversteken....`
 - #### Hardware::
