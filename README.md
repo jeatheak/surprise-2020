@@ -2,17 +2,22 @@
 
 ## TODO
 
-- [ ] Design states (writen)
+- [ ] Design states (written)
   - [x] Vind de Schoenen
   - [x] Steek de weg over
   - [ ] Tripwire
   - [x] Door het Riool
   - [ ] Final
 - [ ] 3D design
-  - [ ] Vind de Schoenen
-  - [ ] Steek de weg over
+  - [x] Vind de Schoenen
+    - [x] Schoenen
+    - [ ] Knoppen
+  - [x] Steek de weg over
   - [ ] Tripwire
   - [ ] Door het Riool
+    - [x] Riool
+    - [x] Ladder
+    - [ ] Cijferslot
   - [ ] Final
 - [ ] Electronics
   - [ ] Mainbord -> ESP32 + SD Card
