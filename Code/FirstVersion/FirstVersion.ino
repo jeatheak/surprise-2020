@@ -5,24 +5,25 @@
 #define CHANNEL   0
 
 // constants won't change. They're used here to set pin numbers:
-const int buttonPin = 26;    // the number of the pushbutton pin
+const int leftBtnPin = 26;    // the number of the pushbutton pin
+const int rightBtnPin = 18;    // the number of the pushbutton pin
 const int ledPin = 2;      // the number of the LED pin
-const int brightness = 25; // in %
+const int brightness = 10; // in %
 
 Freenove_ESP32_WS2812 strip = Freenove_ESP32_WS2812(LEDS_COUNT, LEDS_PIN, CHANNEL, TYPE_GRB);
 
 // Variables will change:
-int ledState = HIGH;         // the current state of the output pin
-int buttonState;             // the current reading from the input pin
-int lastButtonState = LOW;   // the previous reading from the input pin
+int ledState = HIGH;         
 
-// the following variables are unsigned longs because the time, measured in
-// milliseconds, will quickly become a bigger number than can be stored in an int.
-unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
+int buttonStateLeft, buttonStateRight;             
+int lastButtonStateLeft = LOW, lastButtonStateRight = LOW;   
+unsigned long lastDebounceTimeLeft = 0, lastDebounceTimeRight = 0;  
+
 unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
 
 void setup() {
-  pinMode(buttonPin, INPUT);
+  pinMode(leftBtnPin, INPUT);
+  pinMode(rightBtnPin, INPUT);
   pinMode(ledPin, OUTPUT);
 
   digitalWrite(ledPin, ledState);
@@ -38,34 +39,54 @@ int convert(int bit) {
   return ((255/100)*bit);
 }
 
-void loop() {
+int checkBtn(int buttonPin) {
+  int state = LOW;
   int reading = digitalRead(buttonPin);
-
-  if (reading != lastButtonState) {
-    lastDebounceTime = millis();
+  
+  if (reading != lastButtonStateLeft) {
+    lastDebounceTimeLeft = millis();
   }
 
-  if ((millis() - lastDebounceTime) > debounceDelay) {
-    if (reading != buttonState) {
-      buttonState = reading;
-      if (buttonState == HIGH) {
+  if ((millis() - lastDebounceTimeLeft) > debounceDelay) {
+    
+    if (reading != buttonStateLeft) {
+      buttonStateLeft = reading;      
+      /*if (buttonStateLeft == HIGH) {
         ledState = !ledState;
-      }
+      }*/
     }
   }
-
-  digitalWrite(ledPin, ledState);
   
-  if(ledState){
-    Serial.println("HIGH");
-    strip.setLedColorData(0, convert(brightness),0,0);
-    strip.setLedColorData(1, 0,0,convert(brightness));
-  }else{
-    Serial.println("LOW");
-    strip.setLedColorData(0, 0,convert(brightness),0);
-    strip.setLedColorData(1, 0,convert(brightness),0);
+  lastButtonStateLeft = reading;
+  
+  return buttonStateLeft;
+}
+
+unsigned long lastPosTime = 0;
+int playerPos = 0;
+void increasePlayerPos(int state, int sleep) {
+  if(state && (millis() - lastPosTime) > sleep){
+    lastPosTime = millis();
+    if(playerPos < LEDS_COUNT) playerPos++;
+    Serial.print("PlayerPos = ");
+    Serial.println(playerPos);
   }
   
-  lastButtonState = reading;
-  strip.show();
+}
+
+int mainLoopSleep = 0;
+void loop() {
+  int state = checkBtn(leftBtnPin);
+  
+  increasePlayerPos(state, 500);
+
+  for (int i = 0; i < LEDS_COUNT; i++) {
+     if(i == playerPos) strip.setLedColorData(i, 0,convert(brightness),convert(brightness));
+     else strip.setLedColorData(i, 0,0,0);
+  }
+  
+  if ((millis() - mainLoopSleep) > 10){
+    strip.show();
+    mainLoopSleep = millis();
+  }
 }
