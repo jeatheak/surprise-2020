@@ -19,6 +19,10 @@
     - [x] Ladder
     - [ ] Cijferslot
   - [ ] Final
+- [ ] Coding
+  - [ ] Sounds with SD Card
+  - [ ] Stages
+  - [ ] Final
 - [ ] Electronics
   - [ ] Mainbord -> ESP32 + SD Card
   - [ ] Create Speaker + Amplifier
