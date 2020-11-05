@@ -1,6 +1,6 @@
 #include "Freenove_WS2812_Lib_for_ESP32.h"
 
-#define LEDS_COUNT  2
+#define LEDS_COUNT  5
 #define LEDS_PIN  16
 #define CHANNEL   0
 
@@ -64,28 +64,47 @@ int checkBtn(int buttonPin) {
 
 unsigned long lastPosTime = 0;
 int playerPos = 0;
-void increasePlayerPos(int state, int sleep) {
+void playerPosF(int state, int sleep, int left) {
   if(state && (millis() - lastPosTime) > sleep){
     lastPosTime = millis();
-    if(playerPos < LEDS_COUNT) playerPos++;
+    if(left && playerPos < LEDS_COUNT) playerPos++;
+    if(!left && playerPos >= LEDS_COUNT) playerPos--;
     Serial.print("PlayerPos = ");
     Serial.println(playerPos);
   }
   
 }
 
+double pulsState = 0.1;
+int pulseWay = 1;
+void pulseLight(int r,int g,int b, int ledStart, int ledEnd){
+  for (int i = ledStart; i < ledEnd; i++) {
+    strip.setLedColorData(i,convert(r*pulsState),convert(g*pulsState),convert(b*pulsState));
+  }
+
+  if(pulsState >= 1) pulseWay = 0;
+  else if(pulsState <= 0.1) pulseWay = 1;
+  
+  if(pulseWay) pulsState += 0.005;
+  else pulsState -= 0.005;
+
+}
+
 int mainLoopSleep = 0;
 void loop() {
-  int state = checkBtn(leftBtnPin);
   
-  increasePlayerPos(state, 500);
+  /*int stateLeft = checkBtn(leftBtnPin);
+  playerPosF(stateLeft, 500, 1);
 
   for (int i = 0; i < LEDS_COUNT; i++) {
      if(i == playerPos) strip.setLedColorData(i, 0,convert(brightness),convert(brightness));
      else strip.setLedColorData(i, 0,0,0);
-  }
+  }*/
+
+
   
   if ((millis() - mainLoopSleep) > 10){
+    pulseLight(0,100,0,0,5);
     strip.show();
     mainLoopSleep = millis();
   }
