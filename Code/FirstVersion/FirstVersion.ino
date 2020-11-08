@@ -1,12 +1,11 @@
 #include "Freenove_WS2812_Lib_for_ESP32.h"
 
-#define LEDS_COUNT  5
+#define LEDS_COUNT  28
 #define LEDS_PIN  16
 #define CHANNEL   0
 
 // constants won't change. They're used here to set pin numbers:
-const int leftBtnPin = 26;    // the number of the pushbutton pin
-const int rightBtnPin = 18;    // the number of the pushbutton pin
+const int LBTN = 17, DBTN = 18, RBTN = 19, UBTN = 23;    // the number of the pushbutton pin
 const int ledPin = 2;      // the number of the LED pin
 const int brightness = 10; // in %
 
@@ -22,8 +21,10 @@ unsigned long lastDebounceTimeLeft = 0, lastDebounceTimeRight = 0;
 unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
 
 void setup() {
-  pinMode(leftBtnPin, INPUT);
-  pinMode(rightBtnPin, INPUT);
+  pinMode(LBTN, INPUT);
+  pinMode(DBTN, INPUT);
+  pinMode(RBTN, INPUT);
+  pinMode(UBTN, INPUT);
   pinMode(ledPin, OUTPUT);
 
   digitalWrite(ledPin, ledState);
@@ -90,21 +91,52 @@ void pulseLight(int r,int g,int b, int ledStart, int ledEnd){
 
 }
 
-int mainLoopSleep = 0;
-void loop() {
+void streetScene(int plPos, int ledStart, int ledEnd){
+    for (int i = ledStart; i < ledEnd; i++) {
+      if(plPos == i - ledStart){
+        Serial.print("PlayerPos: ");
+        Serial.println(plPos);
+        strip.setLedColorData(i,convert(50),convert(50),convert(50));
+      }
+      else strip.setLedColorData(i,convert(50),0,0);
+  }
+
+}
+
+unsigned long playerMoveSleep = 0;
+void readButtons(){
   
-  /*int stateLeft = checkBtn(leftBtnPin);
-  playerPosF(stateLeft, 500, 1);
+  if(digitalRead(RBTN)){
+    if((millis() - playerMoveSleep) > 500){
+      playerPos++;
+      playerMoveSleep = millis();
+    }
+  }else if(digitalRead(LBTN)){
+    if((millis() - playerMoveSleep) > 500){
+      playerPos--;
+      playerMoveSleep = millis();
+    }
+  }else if(digitalRead(UBTN)){
+    if((millis() - playerMoveSleep) > 500){
+      playerPos += 2;
+      playerMoveSleep = millis();
+    }
+  }else if(digitalRead(DBTN)){
+    if((millis() - playerMoveSleep) > 500){
+      playerPos -= 2;
+      playerMoveSleep = millis();
+    }
+  }
+}
 
-  for (int i = 0; i < LEDS_COUNT; i++) {
-     if(i == playerPos) strip.setLedColorData(i, 0,convert(brightness),convert(brightness));
-     else strip.setLedColorData(i, 0,0,0);
-  }*/
+unsigned long mainLoopSleep = 0;
+void loop() {
 
-
+  readButtons();
   
   if ((millis() - mainLoopSleep) > 10){
-    pulseLight(0,100,0,0,5);
+    //pulseLight(0,100,0,0,28);
+    streetScene(playerPos, 0, 8);
     strip.show();
     mainLoopSleep = millis();
   }
