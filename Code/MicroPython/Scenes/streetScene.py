@@ -1,6 +1,5 @@
-from collections import deque
-from . import renderStreet
-from . import player
+from .Street import renderStreet
+from .Street import player
 import time
 
 playerPosition = [
@@ -12,22 +11,17 @@ playerPosition = [
     [0],
 ]
 
-renderRate = 0
-trafficRate = 0
-while True:
 
-    renderDelta = time.ticks_diff(time.ticks_ms(), renderRate)
-    trafficDelta = time.ticks_diff(time.ticks_ms(), trafficRate)
+def streetScene(neopixel, state):
 
     # Move traffic
-    if (trafficDelta > 800):
+    if state == 3:
         renderStreet.moveTraffic()
-        trafficRate = time.ticks_ms()
 
-    player.checkMove(playerPosition)
+    # Perform Player check
+    if state == 3:
+        player.checkMove(playerPosition)
 
     # render Led strips
-    if (renderDelta > 10):
-
-        renderStreet.renderStreetLeds(playerPosition)
-        renderRate = time.ticks_ms()
+    renderStreet.renderStreetLeds(playerPosition, neopixel, state)
+    time.sleep(0.01)
