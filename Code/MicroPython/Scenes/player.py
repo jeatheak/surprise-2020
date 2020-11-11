@@ -49,14 +49,12 @@ def movePlayerPos(direction, playerStreetPos):
                     playerStreetPos[row][cell - 1] = 1
                     playerStreetPos[row][cell] = 0
 
-                    print(playerStreetPos)
                     return
 
                 elif (direction == LEFT and cell <= len(playerStreetPos)):
                     playerStreetPos[row][cell + 1] = 1
                     playerStreetPos[row][cell] = 0
 
-                    print(playerStreetPos)
                     return
 
                 elif (direction == UP):
@@ -72,7 +70,6 @@ def movePlayerPos(direction, playerStreetPos):
                         playerStreetPos[row + 1][0] = 1
                         playerStreetPos[row][cell] = 0
 
-                    print(playerStreetPos)
                     return
 
                 elif (direction == DOWN):
@@ -88,5 +85,4 @@ def movePlayerPos(direction, playerStreetPos):
                         playerStreetPos[0][0] = 1
                         playerStreetPos[row][cell] = 0
 
-                    print(playerStreetPos)
                     return
