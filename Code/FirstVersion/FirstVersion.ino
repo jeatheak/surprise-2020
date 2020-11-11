@@ -1,8 +1,13 @@
 #include "Freenove_WS2812_Lib_for_ESP32.h"
 
-#define LEDS_COUNT 28
+#define LEDS_COUNT 35
 #define LEDS_PIN 16
 #define CHANNEL 0
+
+#define LEFT 0
+#define DOWN 1
+#define RIGHT 2
+#define UP 3
 
 const int LBTN = 17, DBTN = 18, RBTN = 19, UBTN = 23;
 Freenove_ESP32_WS2812 strip = Freenove_ESP32_WS2812(LEDS_COUNT, LEDS_PIN, CHANNEL, TYPE_GRB);
@@ -50,23 +55,86 @@ void pulseLight(int r, int g, int b, int ledStart, int ledEnd)
 //===== Street Scene =====//
 int playerStreetPos[6][8] =
     {
-      {1},
-      { 0, 0, 0, 0, 0, 0, 0, 0 },
-      { 0, 0, 0, 0, 0, 0, 0, 0 },
-      { 0, 0, 0, 0, 0, 0, 0, 0 },
-      { 0, 0, 0, 0, 0, 0, 0, 0 },
-      {0}
-      };
+        {1},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0}};
+
+void movePlayerPos(int direction)
+{
+  for (int row = 0; row < sizeof(playerStreetPos)/4; row++)
+  {
+    for (int cell = 0; cell < sizeof(playerStreetPos[row])/4; cell++)
+    {
+      if (playerStreetPos[row][cell] == 1)
+      {
+        switch (direction)
+        {
+        case LEFT:
+          if (cell > 0)
+          {
+            playerStreetPos[row][cell - 1] = 1;
+            playerStreetPos[row][cell] = 0;
+          }
+          return;
+        case RIGHT:
+          if (cell < sizeof(playerStreetPos[row]))
+          {
+            playerStreetPos[row][cell + 1] = 1;
+            playerStreetPos[row][cell] = 0;
+          }
+          return;
+        case UP:
+          if (row == 0)
+          {
+            playerStreetPos[1][4] = 1;
+            playerStreetPos[row][cell] = 0;
+          }
+          else if (row > 0 && row < 4)
+          {
+            playerStreetPos[row + 1][cell] = 1;
+            playerStreetPos[row][cell] = 0;
+          }
+          else if (row == 4)
+          {
+            playerStreetPos[row + 1][0] = 1;
+            playerStreetPos[row][cell] = 0;
+          }
+          return;
+        case DOWN:
+          if (row == 5)
+          {
+            playerStreetPos[row - 1][4] = 1;
+            playerStreetPos[row][cell] = 0;
+          }
+          else if (row > 1 && row < 5)
+          {
+            playerStreetPos[row - 1][cell] = 1;
+            playerStreetPos[row][cell] = 0;
+          }
+          else if (row == 1)
+          {
+            playerStreetPos[row - 1][0] = 1;
+            playerStreetPos[row][cell] = 0;
+          }
+
+          return;
+        }
+      }
+    }
+  }
+}
 
 int streetTrafficPos[6][8] =
     {
-      {0},
-      { 1, 1, 0, 1, 0, 0, 1, 0 },
-      { 0, 1, 0, 0, 1, 0, 0, 0 },
-      { 0, 0, 1, 0, 0, 0, 1, 0 },
-      { 0, 1, 0, 1, 0, 0, 1, 1 },
-      {0}
-      };
+        {0},
+        {1, 1, 0, 1, 0, 0, 1, 0},
+        {0, 1, 0, 0, 1, 0, 0, 0},
+        {0, 0, 1, 0, 0, 0, 1, 0},
+        {0, 1, 0, 1, 0, 0, 1, 1},
+        {0}};
 
 unsigned long trafficDelay = 0;
 void streetScene(int plPos, int ledStart)
@@ -76,78 +144,118 @@ void streetScene(int plPos, int ledStart)
 
   // Wait 500ms before changing traffic
   // Set Traffic possitions
-  if ((millis() - trafficDelay) > 500)
-    {
-      for (int currentRow = 0; currentRow < finishRow; currentRow++)
+  if ((millis() - trafficDelay) > 1000)
+  {
+      int sizeOfRow = 8;
+      // set first traffic lane
+      for (int currentRowPos = sizeOfRow; currentRowPos >= 0; currentRowPos--)
       {
-        int sizeOfRow = sizeof(streetTrafficPos[currentRow]);
-        // set first traffic lane
-        for (int currentRowPos = 0; currentRowPos < (sizeOfRow / 2); currentRowPos++)
+        if (streetTrafficPos[1][currentRowPos])
         {
-          if (streetTrafficPos[currentRow][currentRowPos])
-          {
-            // set new pos
-            if (currentRowPos < sizeOfRow)
-              streetTrafficPos[currentRow][currentRowPos + 1] = 1;
-            else
-              streetTrafficPos[currentRow][0] = 1;
+          
+          // set new pos
+          if (currentRowPos <= sizeOfRow)
+            streetTrafficPos[1][currentRowPos + 1] = 1;
+          else
+            streetTrafficPos[1][0] = 1;
 
-            // set current pos
-            if (currentRowPos > 0 && (streetTrafficPos[currentRow][currentRowPos] - 1) == 1)
-              streetTrafficPos[currentRow][currentRowPos] = 1;
-            else
-              streetTrafficPos[currentRow][currentRowPos] = 0;
-          }
-        }
-
-        // set second traffic lane
-        for (int currentRowPos = (sizeOfRow / 2); currentRowPos < sizeOfRow; currentRowPos++)
-        {
-          if (streetTrafficPos[currentRow][currentRowPos])
-          {
-            // set new pos
-            if (currentRowPos > (sizeOfRow - 1))
-              streetTrafficPos[currentRow][currentRowPos - 1] = 1;
-            else
-              streetTrafficPos[currentRow][0] = 1;
-
-            // set current pos
-            if (currentRowPos > (sizeOfRow - 1) && (streetTrafficPos[currentRow][currentRowPos] + 1) == 1)
-              streetTrafficPos[currentRow][currentRowPos] = 1;
-            else
-              streetTrafficPos[currentRow][currentRowPos] = 0;
-          }
+          // set current pos
+          if (currentRowPos > 0 && (streetTrafficPos[1][currentRowPos] - 1) == 1)
+            streetTrafficPos[1][currentRowPos] = 1;
+          else
+            streetTrafficPos[1][currentRowPos] = 0;
         }
       }
+      for (int currentRowPos = 0; currentRowPos < sizeOfRow; currentRowPos++)
+      {
+        if (streetTrafficPos[2][currentRowPos])
+        {
+          
+          // set new pos
+          if (currentRowPos > (sizeOfRow - 1))
+            streetTrafficPos[2][currentRowPos - 1] = 1;
+          else
+            streetTrafficPos[2][0] = 1;
 
-      trafficDelay = millis();
-    }
+          // set current pos
+          if (currentRowPos > (sizeOfRow - 1) && (streetTrafficPos[1][currentRowPos] + 1) == 1)
+            streetTrafficPos[2][currentRowPos] = 1;
+          else
+            streetTrafficPos[2][currentRowPos] = 0;
+        }
+      }
+    
+    /*for (int currentRow = 3; currentRow < 5; currentRow++)
+    {
+      int sizeOfRow = sizeof(streetTrafficPos[currentRow])/4;
+      // set second traffic lane
+      for (int currentRowPos = (sizeOfRow / 2); currentRowPos < sizeOfRow; currentRowPos++)
+      {
+        if (streetTrafficPos[currentRow][currentRowPos])
+        {
+          // set new pos
+          if (currentRowPos > (sizeOfRow - 1))
+            streetTrafficPos[currentRow][currentRowPos - 1] = 1;
+          else
+            streetTrafficPos[currentRow][0] = 1;
+
+          // set current pos
+          if (currentRowPos > (sizeOfRow - 1) && (streetTrafficPos[currentRow][currentRowPos] + 1) == 1)
+            streetTrafficPos[currentRow][currentRowPos] = 1;
+          else
+            streetTrafficPos[currentRow][currentRowPos] = 0;
+        }
+      }
+    }*/
+
+    trafficDelay = millis();
+  }
 
   // Render traffic
+  int currentLed = 0;
   for (int currentRow = 0; currentRow < finishRow; currentRow++)
   {
-    for (int currentRowPos = 0; currentRowPos < sizeof(streetTrafficPos[currentRow]); currentRowPos++)
+    if(currentRow == 0 || currentRow == 5)
     {
-      // color leds
-      int currentLed = (currentRow * currentRowPos) + ledStart;
-
-      if (streetTrafficPos[currentRow][currentRowPos])
-        strip.setLedColorData(currentLed, 0, convert(50), 0);
-      else
-        strip.setLedColorData(currentLed, convert(50), 0, 0);
+      if (streetTrafficPos[currentRow][0])
+          strip.setLedColorData(currentLed, 0, convert(50), 0);
+        else
+          strip.setLedColorData(currentLed, convert(50), 0, 0);
+      currentLed++;
+    }
+    else
+    {
+      for (int currentRowPos = 0; currentRowPos < sizeof(streetTrafficPos[currentRow])/4; currentRowPos++)
+      {
+        if (streetTrafficPos[currentRow][currentRowPos])
+          strip.setLedColorData(currentLed, 0, convert(50), 0);
+        else
+          strip.setLedColorData(currentLed, convert(50), 0, 0);
+      currentLed++;
+    }
     }
   }
 
   // Render Player Position
-  for (int currentRow = 0; currentRow < finishRow; currentRow++)
+  currentLed = 0;
+  for (int currentRow = 0; currentRow < 6; currentRow++)
   {
-    for (int currentRowPos = 0; currentRowPos < sizeof(playerStreetPos[currentRow]); currentRowPos++)
+    if(currentRow == 0 || currentRow == 5)
     {
-      int currentLed = (currentRow * currentRowPos) + ledStart;
-
-      if (playerStreetPos[currentRow][currentRowPos])
-        strip.setLedColorData(currentLed, convert(50), convert(50), convert(50));
+      if (playerStreetPos[currentRow][0])
+          strip.setLedColorData(currentLed, convert(50), convert(50), convert(50));
+      currentLed++;
     }
+    else
+    {
+      for (int currentRowPos = 0; currentRowPos < sizeof(playerStreetPos[currentRow])/4; currentRowPos++)
+      {
+        if (playerStreetPos[currentRow][currentRowPos])
+          strip.setLedColorData(currentLed, convert(50), convert(50), convert(50));
+        currentLed++;
+      }
+    }
+
   }
 }
 
@@ -160,7 +268,7 @@ void readButtons()
   {
     if ((millis() - playerMoveSleep) > 500)
     {
-      playerPos++;
+      movePlayerPos(RIGHT);
       playerMoveSleep = millis();
     }
   }
@@ -168,7 +276,7 @@ void readButtons()
   {
     if ((millis() - playerMoveSleep) > 500)
     {
-      playerPos--;
+      movePlayerPos(LEFT);
       playerMoveSleep = millis();
     }
   }
@@ -176,7 +284,7 @@ void readButtons()
   {
     if ((millis() - playerMoveSleep) > 500)
     {
-      playerPos += 2;
+      movePlayerPos(UP);
       playerMoveSleep = millis();
     }
   }
@@ -184,7 +292,7 @@ void readButtons()
   {
     if ((millis() - playerMoveSleep) > 500)
     {
-      playerPos -= 2;
+      movePlayerPos(DOWN);
       playerMoveSleep = millis();
     }
   }
