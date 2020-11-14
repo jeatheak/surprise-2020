@@ -25,3 +25,5 @@ def streetScene(neopixel, state):
     # render Led strips
     renderStreet.renderStreetLeds(playerPosition, neopixel, state)
     time.sleep(0.01)
+
+    return state

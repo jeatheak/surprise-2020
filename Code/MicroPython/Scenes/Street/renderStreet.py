@@ -34,8 +34,8 @@ def moveTraffic():
         fastTrafficRate = time.ticks_ms()
 
 
-brightness = 18
-streetBrightness = 10
+brightness = 25
+streetBrightness = 0
 
 
 def renderStreetLeds(playerposition, np, state):
@@ -49,12 +49,13 @@ def renderStreetLeds(playerposition, np, state):
                             playerposition[row][y] = 0
                             playerposition[0][0] = 1
                         else:
-                            np[currentLed] = (brightness, 0, 0)
+                            np[currentLed] = (
+                                brightness, brightness, brightness)
                     elif streetScene[row][y] == 1:
                         np[currentLed] = (0, brightness, 0)
                     else:
                         np[currentLed] = (
-                            0, streetBrightness, streetBrightness)
+                            streetBrightness, 0, 0)
                     currentLed = currentLed + 1
             else:
                 for y in range(len(streetScene[row]) - 1, -1, -1):
@@ -63,12 +64,13 @@ def renderStreetLeds(playerposition, np, state):
                             playerposition[row][y] = 0
                             playerposition[0][0] = 1
                         else:
-                            np[currentLed] = (brightness, 0, 0)
+                            np[currentLed] = (
+                                brightness, brightness, brightness)
                     elif streetScene[row][y] == 1:
                         np[currentLed] = (0, brightness, 0)
                     else:
                         np[currentLed] = (
-                            0, streetBrightness, streetBrightness)
+                            streetBrightness, 0, 0)
                     currentLed = currentLed + 1
     elif state > 3:
         for row in range(len(streetScene)):

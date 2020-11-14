@@ -1,12 +1,15 @@
 import time
 from Scenes.streetScene import streetScene
+from Scenes.shoeScene import shoeScene
 from machine import Pin
 from neopixel import NeoPixel
 
-pin = Pin(16, Pin.OUT)   # set GPIO0 to output to drive NeoPixels
-neopixel = NeoPixel(pin, 34)  # create NeoPixel driver on GPIO0 for 8 pixels
+pinStreet = Pin(16, Pin.OUT)
+neoStreet = NeoPixel(pinStreet, 34)
+pinShoe = Pin(18, Pin.OUT)
+neoShoe = NeoPixel(pinShoe, 5)
 
-state = 3
+state = 1
 
 print('init Main done')
 print('Starting main loop...')
@@ -14,4 +17,10 @@ print('Starting main loop...')
 
 while True:
 
-    streetScene(neopixel, state)
+    if state == 1:
+        print('Startup blablablabla...')
+        state = 2
+    elif state == 2:
+        state = shoeScene(neoShoe, state)
+    elif state > 4 and state <= 5:
+        state = streetScene(neoStreet, state)
