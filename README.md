@@ -5,32 +5,38 @@
 - [ ] Design states (written)
   - [x] Vind de Schoenen
   - [x] Steek de weg over
-  - [ ] Tripwire
   - [x] Door het Riool
   - [ ] Final
 - [ ] 3D design
   - [x] Vind de Schoenen
     - [x] Schoenen
-    - [ ] Knoppen
+    - [x] Knoppen
   - [x] Steek de weg over
-  - [ ] Tripwire
-  - [ ] Door het Riool
+  - [x] Door het Riool
     - [x] Riool
     - [x] Ladder
-    - [ ] Cijferslot
+    - [x] Cijferslot
   - [ ] Final
 - [ ] Coding
   - [ ] Sounds with SD Card
+    - [ ] Speech
+    - [ ] Shoe Scene
+    - [ ] Street Scene
+    - [x] Sewer Scene
+    - [ ] Final Scene
   - [ ] Stages
+    - [x] Shoe Scene
+    - [x] Street Scene
+    - [x] Sewer Scene
+    - [ ] Final Scene
   - [ ] Final
 - [ ] Electronics
-  - [ ] Mainbord -> ESP32 + SD Card
-  - [ ] Create Speaker + Amplifier
-  - [ ] Front control board
-  - [ ] Shoe Light
-  - [ ] Water Matrix
-  - [ ] Tripwire lasers
-  - [ ] Riool lichten
+  - [x] Mainbord -> ESP32 + SD Card
+  - [x] Create Speaker + Amplifier
+  - [x] Front control board
+  - [x] Shoe Light
+  - [x] Street Matrix
+  - [x] Riool lights
   - [ ] Finale
 - [ ] Painting
 - [ ] Test
@@ -81,16 +87,6 @@
   - pijltjes gebruiken om over te steken.
 - #### Uitkomst:
   - :bulb: Weg gaat **groen pulseren**
-
----
-
-### Tripwires ==> (title) :flashlight:
-
-- #### Achtergond:
-  - :musical_note: Mission impossible
-- #### Scenario:
-- #### Hardware:
-- #### Todo:
 
 ---
 

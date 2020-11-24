@@ -12,7 +12,7 @@ UP = const(4)
 _movePlayerSpeed = const(250)
 
 
-class buttons(object):
+class Buttons(object):
     def __init__(self, up: int, down: int, left: int, right: int) -> None:
         self._down = Pin(down, Pin.IN, Pin.PULL_UP)
         self._up = Pin(up, Pin.IN, Pin.PULL_UP)

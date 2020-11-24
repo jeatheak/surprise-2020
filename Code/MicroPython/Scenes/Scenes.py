@@ -1,23 +1,26 @@
-import time
+from time import sleep
 from Scenes.streetScene import streetScene
 from Scenes.shoeScene import shoeScene
 import Scenes.sewerScene
-from machine import Pin, SOFT_RESET
+from machine import Pin
 from neopixel import NeoPixel
 import Utils.buttons
+from Speech.player import Player
 
 pinStreet = Pin(16, Pin.OUT)
 neoStreet = NeoPixel(pinStreet, 34)
 pinShoe = Pin(18, Pin.OUT)
 neoShoe = NeoPixel(pinShoe, 5)
 
+mp3 = Player(1, 21, 22)
+
 state = 1
 
 print('init Main done')
 print('Starting main loop...')
 
-buttons = Utils.buttons.buttons(17, 18, 19, 26)
-sewerScene = Scenes.sewerScene.sewerScene(5, 23, buttons)
+buttons = Utils.buttons.Buttons(17, 18, 19, 26)
+sewerScene = Scenes.sewerScene.sewerScene(5, 23, buttons, mp3)
 
 while 1:
 
