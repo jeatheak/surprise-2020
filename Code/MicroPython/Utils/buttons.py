@@ -1,16 +1,12 @@
-
 from micropython import const
 from machine import Pin
-import time
-
-_buttonPressRate = 0
+from Utils.timer import Timer
 
 LEFT = const(1)
 RIGHT = const(2)
 DOWN = const(3)
 UP = const(4)
 _movePlayerSpeed = const(250)
-
 
 class Buttons(object):
     def __init__(self, up: int, down: int, left: int, right: int) -> None:
@@ -19,41 +15,30 @@ class Buttons(object):
         self._left = Pin(left, Pin.IN, Pin.PULL_UP)
         self._right = Pin(right, Pin.IN, Pin.PULL_UP)
         self.move = 0
+        self._tm = Timer(_movePlayerSpeed)
+
+    def _setMove(self, pin: Pin, dir: LEFT|RIGHT|DOWN|UP, str: str) -> int:
+        if pin.value():
+            if self._tm.check():
+                print("Move ", str)
+                self.move = dir
+            else:
+                self.move = 0
+            return 1
+
+        return 0
+
 
     def checkMove(self) -> int:
-        global _buttonPressRate
-
-        buttonDelta = time.ticks_diff(time.ticks_ms(), _buttonPressRate)
-
-        if self._left.value():
-            if buttonDelta > _movePlayerSpeed:
-                print("Move left")
-                self.move = LEFT
-                _buttonPressRate = time.ticks_ms()
-            else:
-                self.move = 0
-        elif self._right.value():
-            if buttonDelta > _movePlayerSpeed:
-                print("Move right")
-                self.move = RIGHT
-                _buttonPressRate = time.ticks_ms()
-            else:
-                self.move = 0
-        elif self._down.value():
-            if buttonDelta > _movePlayerSpeed:
-                print("Move down")
-                self.move = DOWN
-                _buttonPressRate = time.ticks_ms()
-            else:
-                self.move = 0
-        elif self._up.value():
-            if buttonDelta > _movePlayerSpeed:
-                print("Move up")
-                self.move = UP
-                _buttonPressRate = time.ticks_ms()
-            else:
-                self.move = 0
-        else:
+        if self._setMove(self._left,LEFT,'Left'):
+            return self.move
+        elif self._setMove(self._right,RIGHT,'Right'):
+            return self.move
+        elif self._setMove(self._up,UP,'Up'):
+            return self.move
+        elif self._setMove(self._down,DOWN,'Down'):
+            return self.move
+        else: 
             self.move = 0
 
         return self.move
