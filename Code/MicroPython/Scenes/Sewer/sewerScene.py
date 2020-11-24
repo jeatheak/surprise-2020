@@ -27,8 +27,13 @@ class sewerScene(object):
 
         print('SewerScene: done init')
 
-    def write(self):
-        if self.__state == 1:
+    def run(self):
+        if self.__state == 0:
+            print('Starting the SewerScene')
+            self.__mp3.PlaySpecificInFolder(3, 1)
+            self.__mp3.EnableLoop()
+            self.__state = 1
+        elif self.__state == 1:
             self._showRandomNumbers()
             if self.__btns.checkMove() > 0:
                 self.__tm.number(0000)
@@ -76,12 +81,7 @@ class sewerScene(object):
             self._showFinish()
         else:
             self.__tm.write([0, 0, 0, 0])
-
-    def start(self):
-        print('Starting the SewerScene')
-        self.__mp3.PlaySpecificInFolder(3, 1)
-        self.__mp3.EnableLoop()
-        self.__state = 1
+       
 
     def _showFinish(self):
         if self.__numberFlashTimer.check(__FINISH_FLASH_RATE, __FINISH_FLASH_RATE * 2) == 1:

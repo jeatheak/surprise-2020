@@ -42,3 +42,16 @@ class Buttons(object):
             self.move = 0
 
         return self.move
+
+
+class Button(object):
+    def __init__(self, pin, moveSpeed) -> None:
+        self.__btn = Pin(pin, Pin.IN, Pin.PULL_UP)
+        self._tm = Timer(moveSpeed)
+
+    def checkMove(self) -> bool:
+        if self.__btn.value():
+            if self._tm.check():
+                return True
+        
+        return False
