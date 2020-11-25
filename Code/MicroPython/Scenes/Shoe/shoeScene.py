@@ -7,20 +7,23 @@ from Utils.timer import Timer
 __MOVE_PLAYER = const(100)
 __NOT_PRESSED = const(250)
 
+
 class shoeScene(object):
-    
+
     def __init__(self, neopixel, state, btnLeft: int, btnRight: int, mp3: Player) -> None:
         print('Init shoeScene..')
         self.mainState = state
         self.__mp3 = mp3
-        self.__state = StateMachine(1)
+        self.__state = StateMachine(True)
         self.__neo = neopixel
 
         self.__leftButtonPressed = False
         self.__currentLed = 0
         self.__prevLed = -1
-        self.__btnLeft = Button(Pin(btnLeft, Pin.IN, Pin.PULL_UP), __MOVE_PLAYER)
-        self.__btnRight = Button(Pin(btnRight, Pin.IN, Pin.PULL_UP), __MOVE_PLAYER)
+        self.__btnLeft = Button(
+            Pin(btnLeft, Pin.IN, Pin.PULL_UP), __MOVE_PLAYER)
+        self.__btnRight = Button(
+            Pin(btnRight, Pin.IN, Pin.PULL_UP), __MOVE_PLAYER)
 
         self.__notPressedTimer = Timer(__NOT_PRESSED)
 
@@ -40,10 +43,10 @@ class shoeScene(object):
 
     def __start(self) -> bool:
         print('Starting ShoeScene...')
-        self.__mp3.PlaySpecificInFolder(1,1)
+        self.__mp3.PlaySpecificInFolder(1, 1)
         self.__mp3.EnableLoop()
         return True
-    
+
     def __lightShoe(self) -> bool:
         self.__neo[0] = (25, 0, 25)
         self.__neo[1] = (25, 0, 25)
@@ -79,5 +82,3 @@ class shoeScene(object):
                 return True
 
         return False
-
-
