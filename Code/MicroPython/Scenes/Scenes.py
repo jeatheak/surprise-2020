@@ -27,10 +27,10 @@ shoe = shoeScene(neoShoe, state, 5, 23, buttons, mp3)
 start = startup()
 
 stateMachine = StateMachine()
-stateMachine.add(start.run())
-stateMachine.add(shoe.run())
-stateMachine.add(sewer.run())
+stateMachine.add(lambda: start.run())
+stateMachine.add(lambda: shoe.run())
+stateMachine.add(lambda: sewer.run())
 
 while 1:
 
-    stateMachine.nextState()
+    stateMachine.checkState()

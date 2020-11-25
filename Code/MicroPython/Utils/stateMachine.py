@@ -8,18 +8,14 @@ class StateMachine:
 
     def checkState(self) -> None:
         if self.state < len(self.transitions):
-            self.nextState(self.transitions[self.state])
-        else:
-            print(self.state, ' Do nothing')
+            # self.nextState(self.transitions[self.state])
+            if self.transitions[self.state]():
+                self.nextState()
 
-    def nextState(self, input=True) -> None:
-        if input:
-            self.state += 1
-            if self.__annotate:
-                print(self.state, ' Going to next Stage')
-        else:
-            if self.__annotate:
-                print(self.state, ' False Input')
+    def nextState(self) -> None:
+        self.state += 1
+        if self.__annotate:
+            print(self.state, ' Going to next Stage')
 
     def setState(self, input, state):
         if input:
@@ -30,3 +26,22 @@ class StateMachine:
 
     def add(self, input) -> None:
         self.transitions.append(input)
+
+
+# def test(st: StateMachine):
+#     st.nextState()
+
+
+# st = StateMachine(True)
+
+
+# def tt():
+#     return True
+
+
+# st.add(lambda: tt())
+# st.add(lambda: tt())
+# st.add(lambda: test(st))
+
+# while True:
+#     st.checkState()

@@ -37,11 +37,11 @@ class sewerScene(object):
     def __setStates(self) -> None:
         stateMachine = self.__state
 
-        stateMachine.add(self.__start())
-        stateMachine.add(self.__showRandomNumbers())
-        stateMachine.add(self.__cyberLock())
-        stateMachine.add(self.__finishTalk())
-        stateMachine.add(self.__showFinish())
+        stateMachine.add(lambda: self.__start())
+        stateMachine.add(lambda: self.__showRandomNumbers())
+        stateMachine.add(lambda: self.__cyberLock())
+        stateMachine.add(lambda: self.__finishTalk())
+        stateMachine.add(lambda: self.__showFinish())
 
     def __start(self) -> bool:
         print('Starting the SewerScene')

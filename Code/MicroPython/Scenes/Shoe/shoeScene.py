@@ -33,10 +33,10 @@ class shoeScene(object):
     def __setStates(self) -> None:
         stateMachine = self.__state
 
-        stateMachine.add(self.__start())
-        stateMachine.add(self.__runningMan(self.__neo))
-        stateMachine.add(self.__lightShoe())
-        stateMachine.add(1)
+        stateMachine.add(lambda: self.__start())
+        stateMachine.add(lambda: self.__runningMan(self.__neo))
+        stateMachine.add(lambda: self.__lightShoe())
+        # stateMachine.add(1)
 
     def run(self) -> None:
         self.__state.checkState()
