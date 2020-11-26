@@ -1,5 +1,3 @@
-
-
 class StateMachine:
     def __init__(self, annotate: bool = False):
         self.state = 0
@@ -28,12 +26,12 @@ class StateMachine:
         self.transitions.append(input)
 
 
+
+# == TESTS ==
 # def test(st: StateMachine):
 #     st.nextState()
 
-
 # st = StateMachine(True)
-
 
 # def tt():
 #     return True

@@ -10,14 +10,14 @@ __NOT_PRESSED = const(250)
 
 class shoeScene(object):
 
-    def __init__(self, neopixel, state, btnLeft: int, btnRight: int, mp3: Player) -> None:
+    def __init__(self, neopixel, btnLeft: int, btnRight: int, mp3: Player) -> None:
         print('Init shoeScene..')
-        self.mainState = state
         self.__mp3 = mp3
         self.__state = StateMachine(True)
         self.__neo = neopixel
 
         self.__leftButtonPressed = False
+        self.__done = False
         self.__currentLed = 0
         self.__prevLed = -1
         self.__btnLeft = Button(
@@ -36,25 +36,26 @@ class shoeScene(object):
         stateMachine.add(lambda: self.__start())
         stateMachine.add(lambda: self.__runningMan(self.__neo))
         stateMachine.add(lambda: self.__lightShoe())
-        # stateMachine.add(1)
 
     def run(self) -> None:
         self.__state.checkState()
+        if self.__done: return True
 
-    def __start(self) -> bool:
+    def __start(self) -> None:
         print('Starting ShoeScene...')
         self.__mp3.PlaySpecificInFolder(1, 1)
         self.__mp3.EnableLoop()
-        return True
+        self.__state.nextState()
 
-    def __lightShoe(self) -> bool:
+    def __lightShoe(self) -> None:
         self.__neo[0] = (25, 0, 25)
         self.__neo[1] = (25, 0, 25)
         self.__neo[2] = (25, 0, 25)
         self.__neo.write()
-        return True
+        self.__done = True
+        self.__state.nextState()
 
-    def __runningMan(self, neopixel) -> bool:
+    def __runningMan(self, neopixel) -> None:
         btnLeft = self.__btnLeft
         btnRight = self.__btnRight
 
@@ -79,6 +80,4 @@ class shoeScene(object):
             neopixel.write()
 
             if self.__currentLed >= 5:
-                return True
-
-        return False
+                self.__state.nextState()

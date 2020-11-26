@@ -19,6 +19,7 @@ __nums = [63, 6, 91, 79, 102, 109, 125, 7, 127, 111]
 class sewerScene(object):
     def __init__(self, clk: int, dio: int, buttons: Buttons, mp3: Player) -> None:
         self.__state = StateMachine(True)
+        self.__done = False
         self.__tm = Utils.tm1637.TM1637(clk=Pin(clk), dio=Pin(dio))
         self.__position = 0
         self.__btns = buttons
@@ -31,8 +32,9 @@ class sewerScene(object):
         self.__setStates()
         print('SewerScene: done init')
 
-    def run(self) -> None:
+    def run(self) -> bool:
         self.__state.checkState()
+        if self.__done: return True
 
     def __setStates(self) -> None:
         stateMachine = self.__state
@@ -47,7 +49,7 @@ class sewerScene(object):
         print('Starting the SewerScene')
         self.__mp3.PlaySpecificInFolder(3, 1)
         self.__mp3.EnableLoop()
-        return True
+        self.__state.nextState()
 
     def __showRandomNumbers(self) -> bool:
         if self.__resetTimer.check(__RANDOM_FLASH_RATE):
@@ -58,9 +60,7 @@ class sewerScene(object):
             self.__tm.number(0000)
             self.__writeCode([0, 0, 0, 0])
             self.__resetTimer.reset()
-            return True
-
-        return False
+            self.__state.nextState()
 
     def __cyberLock(self) -> bool:
         btnState = self.__btns.checkMove()
@@ -98,16 +98,15 @@ class sewerScene(object):
 
         if self.currentCode == __FINISH_CODE:
             print('You Won!')
-            return True
+            self.__state.nextState()
 
         return False
 
     def __finishTalk(self) -> bool:
         if self.__resetTimer.check(__SPEECH_DELAY) == 1:
             self.__mp3.PlaySpecificInFolder(3, 2)
-            return True
-
-        return False
+            self.__done = True
+            self.__state.nextState()
 
     def __showFinish(self):
         if self.__numberFlashTimer.check(__FINISH_FLASH_RATE, __FINISH_FLASH_RATE * 2) == 1:

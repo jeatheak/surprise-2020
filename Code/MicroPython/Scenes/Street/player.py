@@ -1,33 +1,22 @@
-from machine import Pin, const
-from Utils.timer import Timer
-
-LEFT = const(1)
-RIGHT = const(2)
-DOWN = const(3)
-UP = const(4)
-
-btnLeft = Pin(17, Pin.IN, Pin.PULL_UP)
-btnRight = Pin(19, Pin.IN, Pin.PULL_UP)
-btnDown = Pin(18, Pin.IN, Pin.PULL_UP)
-btnUp = Pin(23, Pin.IN, Pin.PULL_UP)
+from machine import  const
+from Utils.buttons import Buttons, UP, DOWN, RIGHT, LEFT
 
 __MOVE_PLAYER_SPEED = const(250)
 
 
 class Player(object):
-    def __init__(self) -> None:
-        self.__buttonTimer = Timer(__MOVE_PLAYER_SPEED)
+    def __init__(self, buttons: Buttons ) -> None:
+        self.__buttons = buttons
 
     def checkMove(self, playerPosition) -> None:
-        btnTimer = self.__buttonTimer
 
-        if btnLeft.value() and btnTimer.check():
+        if self.__buttons.checkMove() == LEFT:
             self.__movePlayerPos(LEFT, playerPosition)
-        elif btnRight.value() and btnTimer.check():
+        elif self.__buttons.checkMove() == RIGHT:
             self.__movePlayerPos(RIGHT, playerPosition)
-        elif btnDown.value() and btnTimer.check():
+        elif self.__buttons.checkMove() == DOWN:
             self.__movePlayerPos(DOWN, playerPosition)
-        elif btnUp.value() and btnTimer.check():
+        elif self.__buttons.checkMove() == UP:
             self.__movePlayerPos(UP, playerPosition)
 
     def __movePlayerPos(self, direction, playerStreetPos) -> None:
