@@ -1,6 +1,8 @@
 #import Scenes.Scenes
 
 
+from Speech.player import Player
+import Scenes.pindefinitions as p
 from Utils.stepper import create as StepperCreate
 from machine import Pin
 from neopixel import NeoPixel
@@ -18,9 +20,12 @@ from neopixel import NeoPixel
 # print('Done writing leds')
 
 print('start stepper')
+mp3 = Player(1, p.DF_TX_PIN, p.DF_RX_PIN)
 
+mp3.PlaySpecificInFolder(3, 1)
+mp3.EnableLoop()
 
-s1 = StepperCreate(Pin(27, Pin.OUT), Pin(25, Pin.OUT),
-                   Pin(32, Pin.OUT), Pin(12, Pin.OUT), delay=1)
-s1.step(500, -1)  # Open
-s1.step(500)  # close
+# s1 = StepperCreate(Pin(27, Pin.OUT), Pin(25, Pin.OUT),
+#                    Pin(32, Pin.OUT), Pin(12, Pin.OUT), delay=1)
+# s1.step(500, -1)  # Open
+# s1.step(500)  # close
