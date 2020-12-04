@@ -9,7 +9,7 @@ from Speech.player import Player
 
 class streetScene(object):
     def __init__(self, neopixel, mp3: Player, buttons: Buttons) -> None:
-        self.__renderStreet = RenderStreet()
+        self.__renderStreet = RenderStreet(neopixel)
         self.__neo = neopixel
         self.__mp3 = mp3
         self.__done = False
@@ -27,10 +27,10 @@ class streetScene(object):
 
         self.__setStates()
 
-
     def run(self):
         self.__state.checkState()
-        if self.__done: return True
+        if self.__done:
+            return True
 
     def __setStates(self) -> None:
         stateMachine = self.__state

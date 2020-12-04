@@ -1,7 +1,6 @@
 import Utils.tm1637
 from micropython import const
 from machine import Pin
-import time
 from Utils.buttons import Buttons, UP, DOWN, LEFT, RIGHT
 from random import randint
 from Speech.player import Player
@@ -17,38 +16,68 @@ __nums = [63, 6, 91, 79, 102, 109, 125, 7, 127, 111]
 
 
 class sewerScene(object):
-    def __init__(self, clk: int, dio: int, buttons: Buttons, mp3: Player) -> None:
+    def __init__(self, clk: int, dio: int, buttons: Buttons, mp3: Player, neopixel1, neopixel2) -> None:
         self.__state = StateMachine(True)
         self.__done = False
         self.__tm = Utils.tm1637.TM1637(clk=Pin(clk), dio=Pin(dio))
         self.__position = 0
         self.__btns = buttons
         self.__mp3 = mp3
+        self.__neo1 = neopixel1
+        self.__neo2 = neopixel2
         self.__numberFlashTimer = DoubleTimer(
             __FINISH_FLASH_RATE, __FINISH_FLASH_RATE * 1.5)
         self.__resetTimer = Timer(__ACTIVE_TIME)
         self.currentCode = [0, 0, 0, 0]
+
+        for led in range(10):
+            neopixel1[led] = (0, 0, 0)
+        neopixel1.write()
+
+        for led in range(10):
+            neopixel2[led] = (0, 0, 0)
+        neopixel2.write()
 
         self.__setStates()
         print('SewerScene: done init')
 
     def run(self) -> bool:
         self.__state.checkState()
-        if self.__done: return True
+        if self.__done:
+            return True
 
     def __setStates(self) -> None:
         stateMachine = self.__state
 
         stateMachine.add(lambda: self.__start())
+        stateMachine.add(lambda: self.__lightSewer1(self.__neo1))
         stateMachine.add(lambda: self.__showRandomNumbers())
         stateMachine.add(lambda: self.__cyberLock())
         stateMachine.add(lambda: self.__finishTalk())
+        stateMachine.add(lambda: self.__lightSewer2(self.__neo1, self.__neo2))
         stateMachine.add(lambda: self.__showFinish())
 
     def __start(self) -> bool:
-        print('Starting the SewerScene')
         self.__mp3.PlaySpecificInFolder(3, 1)
         self.__mp3.EnableLoop()
+        self.__state.nextState()
+
+    def __lightSewer1(self, neopixel1) -> None:
+        for led in range(6):
+            neopixel1[led] = (0, 25, 0)
+        for led in range(6, 10):
+            neopixel1[led] = (25, 0, 0)
+        neopixel1.write()
+        self.__state.nextState()
+
+    def __lightSewer2(self, neopixel1, neopixel2) -> None:
+        for led in range(10):
+            neopixel1[led] = (0, 25, 0)
+        neopixel1.write()
+        for led in range(4):
+            neopixel2[led] = (0, 25, 0)
+        neopixel2.write()
+        self.__done = True
         self.__state.nextState()
 
     def __showRandomNumbers(self) -> bool:
@@ -87,25 +116,25 @@ class sewerScene(object):
                 self.__position -= 1
                 print('New Position: ', self.__position)
         else:
-            if self.__resetTimer.check():
-                self.__state = 1
+            if self.__resetTimer.check(__ACTIVE_TIME):
+                self.__state.prevState()
                 self.__position = 0
 
-            if self.__numberFlashTimer.check() == 1:
+            flashTimerCheck = self.__numberFlashTimer.check()
+            if flashTimerCheck == 1:
                 self.__tm.write([0], self.__position)
-            elif self.__numberFlashTimer.check() == 2:
+            elif flashTimerCheck == 2:
                 self.__writeCode(self.currentCode)
 
         if self.currentCode == __FINISH_CODE:
-            print('You Won!')
+            self.__resetTimer.reset()
             self.__state.nextState()
 
         return False
 
     def __finishTalk(self) -> bool:
-        if self.__resetTimer.check(__SPEECH_DELAY) == 1:
+        if self.__resetTimer.check(__SPEECH_DELAY):
             self.__mp3.PlaySpecificInFolder(3, 2)
-            self.__done = True
             self.__state.nextState()
 
     def __showFinish(self):

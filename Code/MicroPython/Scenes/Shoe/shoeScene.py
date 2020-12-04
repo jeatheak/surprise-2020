@@ -1,4 +1,5 @@
-from machine import Pin, const
+from machine import Pin
+from micropython import const
 from Speech.player import Player
 from Utils.stateMachine import StateMachine
 from Utils.buttons import Button
@@ -8,7 +9,7 @@ __MOVE_PLAYER = const(100)
 __NOT_PRESSED = const(250)
 
 
-class shoeScene(object):
+class shoeScene:
 
     def __init__(self, neopixel, btnLeft: int, btnRight: int, mp3: Player) -> None:
         print('Init shoeScene..')
@@ -21,11 +22,16 @@ class shoeScene(object):
         self.__currentLed = 0
         self.__prevLed = -1
         self.__btnLeft = Button(
-            Pin(btnLeft, Pin.IN, Pin.PULL_UP), __MOVE_PLAYER)
+            btnLeft, __MOVE_PLAYER)
         self.__btnRight = Button(
-            Pin(btnRight, Pin.IN, Pin.PULL_UP), __MOVE_PLAYER)
+            btnRight, __MOVE_PLAYER)
 
         self.__notPressedTimer = Timer(__NOT_PRESSED)
+
+        for led in range(16):
+            neopixel[led] = (0, 0, 0)
+
+        neopixel.write()
 
         self.__setStates()
         print('Done Init shoeScene')
@@ -35,24 +41,17 @@ class shoeScene(object):
 
         stateMachine.add(lambda: self.__start())
         stateMachine.add(lambda: self.__runningMan(self.__neo))
-        stateMachine.add(lambda: self.__lightShoe())
+        stateMachine.add(lambda: self.__finish(self.__neo))
 
     def run(self) -> None:
         self.__state.checkState()
-        if self.__done: return True
+        if self.__done:
+            return True
 
     def __start(self) -> None:
         print('Starting ShoeScene...')
         self.__mp3.PlaySpecificInFolder(1, 1)
         self.__mp3.EnableLoop()
-        self.__state.nextState()
-
-    def __lightShoe(self) -> None:
-        self.__neo[0] = (25, 0, 25)
-        self.__neo[1] = (25, 0, 25)
-        self.__neo[2] = (25, 0, 25)
-        self.__neo.write()
-        self.__done = True
         self.__state.nextState()
 
     def __runningMan(self, neopixel) -> None:
@@ -71,7 +70,7 @@ class shoeScene(object):
             self.__leftButtonPressed = False
 
         if self.__prevLed < self.__currentLed:
-            for led in range(5):
+            for led in range(13):
                 if led < self.__currentLed:
                     neopixel[led] = (25, 25, 25)
                 else:
@@ -79,5 +78,18 @@ class shoeScene(object):
 
             neopixel.write()
 
-            if self.__currentLed >= 5:
+            if self.__currentLed >= 13:
+                print('goto Finish')
                 self.__state.nextState()
+
+    def __finish(self, neopixel) -> None:
+        for led in range(13):
+            neopixel[led] = (0, 15, 0)
+        for led in range(13, 16):
+            neopixel[led] = (25, 25, 25)
+
+        neopixel.write()
+        self.__done = True
+
+        self.__mp3.Stop()
+        self.__state.nextState()

@@ -8,6 +8,7 @@ DOWN = const(3)
 UP = const(4)
 _movePlayerSpeed = const(250)
 
+
 class Buttons(object):
     def __init__(self, up: int, down: int, left: int, right: int) -> None:
         self._down = Pin(down, Pin.IN, Pin.PULL_UP)
@@ -17,7 +18,7 @@ class Buttons(object):
         self.move = 0
         self._tm = Timer(_movePlayerSpeed)
 
-    def _setMove(self, pin: Pin, dir: LEFT|RIGHT|DOWN|UP, str: str) -> int:
+    def _setMove(self, pin: Pin, dir: LEFT | RIGHT | DOWN | UP, str: str) -> int:
         if pin.value():
             if self._tm.check():
                 print("Move ", str)
@@ -28,17 +29,16 @@ class Buttons(object):
 
         return 0
 
-
     def checkMove(self) -> int:
-        if self._setMove(self._left,LEFT,'Left'):
+        if self._setMove(self._left, LEFT, 'Left'):
             return self.move
-        elif self._setMove(self._right,RIGHT,'Right'):
+        elif self._setMove(self._right, RIGHT, 'Right'):
             return self.move
-        elif self._setMove(self._up,UP,'Up'):
+        elif self._setMove(self._up, UP, 'Up'):
             return self.move
-        elif self._setMove(self._down,DOWN,'Down'):
+        elif self._setMove(self._down, DOWN, 'Down'):
             return self.move
-        else: 
+        else:
             self.move = 0
 
         return self.move
@@ -53,5 +53,5 @@ class Button(object):
         if self.__btn.value():
             if self._tm.check():
                 return True
-        
+
         return False

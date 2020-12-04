@@ -15,6 +15,11 @@ class StateMachine:
         if self.__annotate:
             print(self.state, ' Going to next Stage')
 
+    def prevState(self) -> None:
+        self.state -= 1
+        if self.__annotate:
+            print(self.state, ' Going to prev Stage')
+
     def setState(self, input, state):
         if input:
             self.state = state
@@ -24,7 +29,6 @@ class StateMachine:
 
     def add(self, input) -> None:
         self.transitions.append(input)
-
 
 
 # == TESTS ==

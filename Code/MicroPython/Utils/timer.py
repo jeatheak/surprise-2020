@@ -1,4 +1,5 @@
-from time import time_ms, ticks_diff
+from time import ticks_ms, ticks_diff
+
 
 class Timer(object):
     def __init__(self, delay: int):
@@ -15,11 +16,12 @@ class Timer(object):
         if ticks_diff(ticks_ms(), self._lastRate) > _delay:
             self._lastRate = ticks_ms()
             return 1
-        
+
         return 0
 
     def reset(self):
-        self._lastRate = time_ms()
+        self._lastRate = ticks_ms()
+
 
 class DoubleTimer(object):
     def __init__(self, delay: int, secondDelay: int):
@@ -27,6 +29,7 @@ class DoubleTimer(object):
         self.SecondDelay = secondDelay
         self.Elapsed = 0
         self._lastRate = 0
+        self.__delaySet = False
 
     def check(self, delay1: int = None, delay2: int = None) -> int:
         delta = ticks_diff(ticks_ms(), self._lastRate)
@@ -39,17 +42,18 @@ class DoubleTimer(object):
         if delay2 != None:
             _delay2 = delay2
 
-        
         self.Delay = _delay1
         self.SecondDelay = _delay2
-        
-        if delta > _delay1 and delta <= _delay2:
+
+        if delta > _delay1 and not self.__delaySet:
+            self.__delaySet = True
             return 1
-        elif delta > _delay2:
+        elif delta > _delay2 and self.__delaySet:
+            self.__delaySet = False
             self._lastRate = ticks_ms()
             return 2
-        
+
         return 0
 
     def reset(self):
-        self._lastRate = time_ms()
+        self._lastRate = ticks_ms()
