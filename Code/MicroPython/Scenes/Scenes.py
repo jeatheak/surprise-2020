@@ -40,19 +40,19 @@ sewer = sewerScene(p.SEWER_SEGMENT_CLK, p.SEWER_SEGMENT_DIO,
 shoe = shoeScene(neoShoe, p.LEFT_SIDE_BTN,
                  p.RIGHT_SIDE_BTN, mp3)
 street = streetScene(neoStreet, mp3, buttons)
-start = startup(neoStart, stepper)
+start = startup(neoStart, stepper, mp3)
 finish = finishScene(neoFinish, mp3, stepper)
 pathLight = PathLightning(neoSewer, neoFinish)
 
 stateMachine = StateMachine()
-stateMachine.add(lambda: start.run())
+# stateMachine.add(lambda: start.run())
 # stateMachine.add(lambda: shoe.run())
 # stateMachine.add(lambda: pathLight.lightPath1())
 # stateMachine.add(lambda: street.run())
-stateMachine.add(lambda: pathLight.lightPath2())
-stateMachine.add(lambda: sewer.run())
-stateMachine.add(lambda: pathLight.lightPath3())
-# stateMachine.add(lambda: finish.run())
+# stateMachine.add(lambda: pathLight.lightPath2())
+# stateMachine.add(lambda: sewer.run())
+# stateMachine.add(lambda: pathLight.lightPath3())
+stateMachine.add(lambda: finish.run())
 
 while 1:
 

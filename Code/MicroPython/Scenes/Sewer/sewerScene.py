@@ -100,7 +100,7 @@ class sewerScene(object):
 
     def __WaterWalkBg(self) -> None:
         print('Start bg walk')
-        self.__mp3.SetVolume(80)
+        self.__mp3.SetVolume(50)
         self.__mp3.PlaySpecificInFolder(3, 3)
         self.__state.nextState()
 
