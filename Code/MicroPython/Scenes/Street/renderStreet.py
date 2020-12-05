@@ -12,7 +12,7 @@ streetScene = [
     [0]
 ]
 
-brightness = 25
+brightness = 35
 streetBrightness = 0
 
 
@@ -35,7 +35,7 @@ class RenderStreet(object):
         currentLed = 0
         for row in range(len(streetScene)):
             for cell in range(len(streetScene[row])):
-                self.__neo[currentLed] = (5, 5, 5)
+                self.__neo[currentLed] = (0, 25, 0)
                 currentLed = currentLed + 1
         self.__neo.write()
 
@@ -47,6 +47,7 @@ class RenderStreet(object):
                 for y in range(0, len(streetScene[row])):
                     if playerposition[row][y] == 1:
                         if (streetScene[row][y] == 1):
+                            print('hit')
                             playerposition[row][y] = 0
                             playerposition[0][0] = 1
                         else:
@@ -62,6 +63,7 @@ class RenderStreet(object):
                 for y in range(len(streetScene[row]) - 1, -1, -1):
                     if playerposition[row][y] == 1:
                         if (streetScene[row][y] == 1):
+                            print('hit')
                             playerposition[row][y] = 0
                             playerposition[0][0] = 1
                         else:

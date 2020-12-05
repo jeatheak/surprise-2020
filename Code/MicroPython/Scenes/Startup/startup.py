@@ -1,8 +1,12 @@
+from Utils.stepper import Stepper
 from Utils.stateMachine import StateMachine
+import os
+stepperLocation = open('stepperLoc', 'w')
+stepperLocationR = open('stepperLoc', 'r')
 
 
 class startup(object):
-    def __init__(self, neopixel) -> None:
+    def __init__(self, neopixel, stepper: Stepper) -> None:
         self.__state = StateMachine(True)
         self.__neo = neopixel
         self.__done = False
@@ -11,6 +15,16 @@ class startup(object):
             neopixel[led] = (0, 0, 0)
 
         neopixel.write()
+
+        f = open("stepperLoc.txt", "r")
+        stepperLoc = f.readline()
+        f.close()
+
+        if stepperLoc == 'Open':
+            outFile = open('stepperLoc.txt', 'w')
+            outFile.write('Closed')
+            outFile.close()
+            stepper.step(1000, 1)  # Close
 
         self.__setStates()
         print('Init Startup Scene')

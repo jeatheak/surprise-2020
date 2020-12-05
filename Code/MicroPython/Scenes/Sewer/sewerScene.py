@@ -29,6 +29,9 @@ class sewerScene(object):
             __FINISH_FLASH_RATE, __FINISH_FLASH_RATE * 1.5)
         self.__resetTimer = Timer(__ACTIVE_TIME)
         self.currentCode = [0, 0, 0, 0]
+        self.__doorOpenTimer = Timer(4000)
+
+        self.__tm.write([0, 0, 0, 0])
 
         for led in range(10):
             neopixel1[led] = (0, 0, 0)
@@ -54,6 +57,7 @@ class sewerScene(object):
         stateMachine.add(lambda: self.__showRandomNumbers())
         stateMachine.add(lambda: self.__cyberLock())
         stateMachine.add(lambda: self.__finishTalk())
+        stateMachine.add(lambda: self.__waitDoorOpen())
         stateMachine.add(lambda: self.__lightSewer2(self.__neo1, self.__neo2))
         stateMachine.add(lambda: self.__showFinish())
 
@@ -135,6 +139,7 @@ class sewerScene(object):
     def __finishTalk(self) -> bool:
         if self.__resetTimer.check(__SPEECH_DELAY):
             self.__mp3.PlaySpecificInFolder(3, 2)
+            self.__doorOpenTimer.reset()
             self.__state.nextState()
 
     def __showFinish(self):
@@ -142,6 +147,10 @@ class sewerScene(object):
             self.__tm.write([0, 0, 0, 0])
         elif self.__numberFlashTimer.check(__FINISH_FLASH_RATE, __FINISH_FLASH_RATE * 2) == 2:
             self.__writeCode(self.currentCode)
+
+    def __waitDoorOpen(self):
+        if self.__doorOpenTimer.check():
+            self.__state.nextState()
 
     def __writeCode(self, arr):
         self.currentCode = arr

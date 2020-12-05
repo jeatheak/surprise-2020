@@ -8,7 +8,7 @@ RIGHT_ARROW = 18
 UP_ARROW = 26
 
 # Side Buttons
-LEFT_SIDE_BTN = 14
+LEFT_SIDE_BTN = 34
 RIGHT_SIDE_BTN = 4
 
 # DFPlayer (speech)
@@ -16,7 +16,7 @@ DF_RX_PIN = 21
 DF_TX_PIN = 22
 
 # StreetScene Ledstrip
-STREET_DIN = 33
+STREET_DIN = 14
 
 # SewerScene Ledstrip
 SEWER_DIN = 13

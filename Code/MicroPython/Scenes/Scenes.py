@@ -1,4 +1,6 @@
 
+from Utils.stepper import create as stepperCreate
+from Scenes.Finish.finish import finishScene
 from Speech.player import Player
 from Utils.buttons import Buttons
 from Utils.stateMachine import StateMachine
@@ -25,6 +27,9 @@ neoFinish = NeoPixel(pinFinish, 10)
 
 mp3 = Player(1, p.DF_TX_PIN, p.DF_RX_PIN)
 
+stepper = stepperCreate(Pin(p.STEPPER_PIN1, Pin.OUT), Pin(
+    p.STEPPER_PIN2, Pin.OUT), Pin(p.STEPPER_PIN3, Pin.OUT), Pin(p.STEPPER_PIN4, Pin.OUT))
+
 print('init Main done')
 print('Starting main loop...')
 
@@ -34,13 +39,16 @@ sewer = sewerScene(p.SEWER_SEGMENT_CLK, p.SEWER_SEGMENT_DIO,
 shoe = shoeScene(neoShoe, p.LEFT_SIDE_BTN,
                  p.RIGHT_SIDE_BTN, mp3)
 street = streetScene(neoStreet, mp3, buttons)
-start = startup(neoStart)
+start = startup(neoStart, stepper)
+finish = finishScene(neoFinish, mp3, stepper)
 
 stateMachine = StateMachine()
 stateMachine.add(lambda: start.run())
-# stateMachine.add(lambda: shoe.run())
+stateMachine.add(lambda: shoe.run())
+stateMachine.add(lambda: street.run())
 # TODO: add road Lightning
 stateMachine.add(lambda: sewer.run())
+stateMachine.add(lambda: finish.run())
 
 while 1:
 

@@ -1,19 +1,57 @@
-import Utils.tm1637
-from micropython import const
-from machine import Pin
-from Utils.buttons import Buttons, UP, DOWN, LEFT, RIGHT
-from random import randint
 from Speech.player import Player
-from Utils.timer import Timer, DoubleTimer
 from Utils.stateMachine import StateMachine
-
-__RANDOM_FLASH_RATE = const(100)
-__ACTIVE_TIME = const(1000)
-__FINISH_FLASH_RATE = const(150)
-__SPEECH_DELAY = const(3000)
-__FINISH_CODE = [1, 2, 0, 4]
-__nums = [63, 6, 91, 79, 102, 109, 125, 7, 127, 111]
+from Utils.stepper import Stepper
+stepperLocation = open('stepperLoc', 'w')
 
 
-class sewerScene(object):
-    def __init__(self) -> None:
+class finishScene(object):
+    def __init__(self, neopixel, mp3: Player, stepper: Stepper) -> None:
+        self.__state = StateMachine(True)
+        self.__done = False
+        self.__mp3 = mp3
+        self.__neo = neopixel
+        self.__stepper = stepper
+        self.currentCode = [0, 0, 0, 0]
+
+        neopixel[7] = (0, 0, 0)
+        neopixel[8] = (0, 0, 0)
+        neopixel.write()
+
+        self.__setStates()
+        print('finishScene: done init')
+
+    def __setStates(self) -> None:
+        stateMachine = self.__state
+
+        stateMachine.add(lambda: self.__start())
+        stateMachine.add(lambda: self.__setPresents(self.__neo))
+        stateMachine.add(lambda: self.__openSideDoor(self.__stepper))
+
+    def run(self) -> bool:
+        self.__state.checkState()
+        if self.__done:
+            return True
+
+    def __start(self) -> None:
+        self.__mp3.PlaySpecificInFolder(4, 1)
+        self.__mp3.EnableLoop()
+        self.__state.nextState()
+
+    def __setPresents(self, neopixel) -> None:
+        neopixel[7] = (0, 150, 0)
+        neopixel[8] = (100, 0, 100)
+        neopixel.write()
+        self.__state.nextState()
+
+    def __openSideDoor(self, stepper: Stepper) -> None:
+        f = open("stepperLoc.txt", "r")
+        stepperLoc = f.readline()
+        f.close()
+
+        if stepperLoc == 'Closed':
+            outFile = open('stepperLoc.txt', 'w')
+            outFile.write('Open')
+            outFile.close()
+            stepper.step(1000, -1)  # Open
+
+        self.__state.nextState()
