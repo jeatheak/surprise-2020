@@ -21,6 +21,7 @@ class shoeScene:
         self.__done = False
         self.__currentLed = 0
         self.__prevLed = -1
+        self.__speechTimer = Timer(6000)
         self.__btnLeft = Button(
             btnLeft, __MOVE_PLAYER)
         self.__btnRight = Button(
@@ -40,18 +41,49 @@ class shoeScene:
         stateMachine = self.__state
 
         stateMachine.add(lambda: self.__start())
+        stateMachine.add(lambda: self.__startTalk())
+        stateMachine.add(lambda: self.__wait(6500))
+        stateMachine.add(lambda: self.__startBgMusic())
         stateMachine.add(lambda: self.__runningMan(self.__neo))
-        stateMachine.add(lambda: self.__finish(self.__neo))
+        stateMachine.add(lambda: self.__lightGreen(self.__neo))
+        stateMachine.add(lambda: self.__wait(1000))
+        stateMachine.add(lambda: self.__endTalk())
+        stateMachine.add(lambda: self.__wait(3500))
+        stateMachine.add(lambda: self.__finish())
 
     def run(self) -> None:
         self.__state.checkState()
         if self.__done:
+            print('done')
             return True
 
+    def __wait(self, delay: int) -> None:
+        if self.__speechTimer.check(delay):
+            print('Timer Ended.')
+            self.__state.nextState()
+
     def __start(self) -> None:
+        self.__speechTimer.reset()
+        self.__state.nextState()
+
+    def __startBgMusic(self) -> None:
         print('Starting ShoeScene...')
+        self.__mp3.SetVolume(80)
         self.__mp3.PlaySpecificInFolder(1, 1)
         self.__mp3.EnableLoop()
+        self.__state.nextState()
+
+    def __startTalk(self) -> None:
+        print('Start Speech Start')
+        self.__mp3.SetVolume(50)
+        self.__mp3.PlaySpecificInFolder(1, 2)
+        self.__state.nextState()
+
+    def __endTalk(self) -> None:
+        print('Start Speech End')
+        self.__mp3.SetVolume(50)
+        self.__mp3.PlaySpecificInFolder(1, 3)
+        self.__speechTimer.reset()
         self.__state.nextState()
 
     def __runningMan(self, neopixel) -> None:
@@ -82,14 +114,18 @@ class shoeScene:
                 print('goto Finish')
                 self.__state.nextState()
 
-    def __finish(self, neopixel) -> None:
+    def __lightGreen(self, neopixel) -> None:
         for led in range(13):
             neopixel[led] = (0, 15, 0)
         for led in range(13, 16):
             neopixel[led] = (25, 25, 25)
 
         neopixel.write()
-        self.__done = True
 
         self.__mp3.Stop()
+        self.__state.nextState()
+
+    def __finish(self) -> None:
+        print('done')
+        self.__done = True
         self.__state.nextState()

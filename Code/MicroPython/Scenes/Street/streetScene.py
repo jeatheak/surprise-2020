@@ -40,10 +40,17 @@ class streetScene(object):
     def __setStates(self) -> None:
         stateMachine = self.__state
 
-        stateMachine.add(lambda: self.__GiveSpeech())
+        stateMachine.add(lambda: self.__start())
+        stateMachine.add(lambda: self.__StartTalk())
+        stateMachine.add(lambda: self.__wait(6500))
         stateMachine.add(lambda: self.__startStreetScene())
         stateMachine.add(lambda: self.__play())
         stateMachine.add(lambda: self.__finish())
+
+    def __wait(self, delay: int) -> None:
+        if self.__speechTimer.check(delay):
+            print('Timer Ended.')
+            self.__state.nextState()
 
     def __play(self) -> None:
         # Move traffic
@@ -65,12 +72,19 @@ class streetScene(object):
         self.__done = True
         self.__state.nextState()
 
-    def __GiveSpeech(self) -> None:
-        if self.__speechTimer.check():
-            self.__state.nextState()
+    def __start(self) -> None:
+        self.__speechTimer.reset()
+        self.__state.nextState()
+
+    def __StartTalk(self) -> None:
+        print('Start Speech Start')
+        self.__mp3.SetVolume(50)
+        self.__mp3.PlaySpecificInFolder(2, 2)
+        self.__state.nextState()
 
     def __startStreetScene(self) -> None:
         print('Starting StreetScene')
+        self.__mp3.SetVolume(80)
         self.__mp3.PlaySpecificInFolder(2, 1)
         self.__mp3.EnableLoop()
         self.__state.nextState()

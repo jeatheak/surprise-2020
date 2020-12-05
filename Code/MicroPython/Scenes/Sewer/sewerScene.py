@@ -25,6 +25,7 @@ class sewerScene(object):
         self.__mp3 = mp3
         self.__neo1 = neopixel1
         self.__neo2 = neopixel2
+        self.__speechTimer = Timer(4000)
         self.__numberFlashTimer = DoubleTimer(
             __FINISH_FLASH_RATE, __FINISH_FLASH_RATE * 1.5)
         self.__resetTimer = Timer(__ACTIVE_TIME)
@@ -53,7 +54,14 @@ class sewerScene(object):
         stateMachine = self.__state
 
         stateMachine.add(lambda: self.__start())
+        stateMachine.add(lambda: self.__StartTalk())
+        stateMachine.add(lambda: self.__wait(6500))
         stateMachine.add(lambda: self.__lightSewer1(self.__neo1))
+        stateMachine.add(lambda: self.__WaterWalkBg())
+        stateMachine.add(lambda: self.__wait(5000))
+        stateMachine.add(lambda: self.__doorTalk())
+        stateMachine.add(lambda: self.__wait(6500))
+        stateMachine.add(lambda: self.__startBgMusic())
         stateMachine.add(lambda: self.__showRandomNumbers())
         stateMachine.add(lambda: self.__cyberLock())
         stateMachine.add(lambda: self.__finishTalk())
@@ -61,10 +69,16 @@ class sewerScene(object):
         stateMachine.add(lambda: self.__lightSewer2(self.__neo1, self.__neo2))
         stateMachine.add(lambda: self.__showFinish())
 
-    def __start(self) -> bool:
+    def __startBgMusic(self) -> bool:
+        self.__mp3.SetVolume(80)
         self.__mp3.PlaySpecificInFolder(3, 1)
         self.__mp3.EnableLoop()
         self.__state.nextState()
+
+    def __wait(self, delay: int) -> None:
+        if self.__speechTimer.check(delay):
+            print('Timer Ended.')
+            self.__state.nextState()
 
     def __lightSewer1(self, neopixel1) -> None:
         for led in range(6):
@@ -72,6 +86,28 @@ class sewerScene(object):
         for led in range(6, 10):
             neopixel1[led] = (25, 0, 0)
         neopixel1.write()
+        self.__state.nextState()
+
+    def __start(self) -> None:
+        self.__speechTimer.reset()
+        self.__state.nextState()
+
+    def __StartTalk(self) -> None:
+        print('Start Speech Start')
+        self.__mp3.SetVolume(50)
+        self.__mp3.PlaySpecificInFolder(3, 4)
+        self.__state.nextState()
+
+    def __WaterWalkBg(self) -> None:
+        print('Start bg walk')
+        self.__mp3.SetVolume(80)
+        self.__mp3.PlaySpecificInFolder(3, 3)
+        self.__state.nextState()
+
+    def __doorTalk(self) -> None:
+        print('Start Speech door')
+        self.__mp3.SetVolume(50)
+        self.__mp3.PlaySpecificInFolder(3, 5)
         self.__state.nextState()
 
     def __lightSewer2(self, neopixel1, neopixel2) -> None:
